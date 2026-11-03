@@ -22,7 +22,7 @@ Every plugin is MIT-licensed, built on [DPF](https://github.com/DISTRHO/DPF), an
 | <img src="https://raw.githubusercontent.com/natehouk/talc/main/screenshot.png" width="160"> | [**Talc**](https://github.com/natehouk/talc) | De-esser (effect) | 1.1 | Single-vocal or allround detection, wide-band or linear-phase split-band, sidechain filters set over a live spectrum, up to 15 ms look-ahead, sibilance display. 22 factory presets. |
 | <img src="https://raw.githubusercontent.com/natehouk/schist/main/screenshot.png" width="160"> | [**Schist**](https://github.com/natehouk/schist) | Multiband compressor (effect) | 2.1 | Up to six freely placed bands that compress or expand, downward or upward, with ratios up to Inf:1 for limiting and gating; dynamic, linear or minimum phase; per-band sidechain and custom detection range. 41 factory presets. |
 | <img src="https://raw.githubusercontent.com/natehouk/geode/main/screenshot.png" width="160"> | [**Geode**](https://github.com/natehouk/geode) | Reverb (effect) | 2.0 | Modern, Vintage and Plate algorithms, a stepless space control across fourteen room models, decay rate EQ and post EQ, thickness, ducking, auto gate, freeze and impulse-response import, zero latency. 46 factory presets. |
-| <img src="https://raw.githubusercontent.com/natehouk/malachite/main/screenshot.png" width="160"> | [**Malachite**](https://github.com/natehouk/malachite) | Acid bass synth (instrument) | 1.1 | Saw or square oscillator, squelchy resonant filter, accent with build-up, slide, and a 16-step sequencer with 64 patterns that follows the host tempo. 22 factory sound presets. |
+| <img src="https://raw.githubusercontent.com/natehouk/malachite/main/screenshot.png" width="160"> | [**Malachite**](https://github.com/natehouk/malachite) | Acid bass synth (instrument) | 1.2 | Saw or square oscillator with a sub oscillator, squelchy resonant filter, accent with build-up, slide, and a 16-step sequencer with 64 patterns and scales that follows the host tempo. 22 factory sound presets. |
 
 ## How they fit together
 
@@ -131,7 +131,7 @@ Measured from each plugin's Linux x64 VST3 at its release tag, rendered offline 
 | Talc | v1.1 | 0.9% | 0 | default (8 dB range): 500 Hz tone +0.0 dB, 7 kHz tone −8.0 dB |
 | Schist | v2.1 | 0.3% | 0 | flat: bit-exact; 6 bands 6.8% CPU; linear phase 4096 smp (85.3 ms) |
 | Geode | v2.0 | 3.5% | 0 | RT60 at Space 0% 0.43 s, 50% 1.40 s, 100% 8.20 s |
-| Malachite | v1.1 | 2.4% | 16 smp (0.3 ms) | aliasing at A6 −53.1 dB (−53.1 dB below 10 kHz) |
+| Malachite | v1.2.0 | 1.9% | 16 smp (0.3 ms) | aliasing at A6 −53.1 dB (−53.1 dB below 10 kHz) |
 
 <!-- benchmarks:end -->
 
