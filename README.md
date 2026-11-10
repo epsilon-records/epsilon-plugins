@@ -137,7 +137,7 @@ Measured from each plugin's Linux x64 VST3 at its release tag, rendered offline 
 
 ## Clean-room note
 
-Each plugin was written from scratch, working only from public press releases, product descriptions, manuals and contemporary reviews. No third-party code, binaries, firmware, presets, artwork or trademarks were used, and every interface is an original design.
+Each plugin was written from scratch, working only from public press releases, product descriptions, manuals and contemporary reviews. The DSP, interface and presets are original work, and no code, binaries, firmware, presets, artwork or trademarks from other products were used. Third-party components, such as the DPF framework, are listed under License in each plugin's README.
 
 Several plugins have had a major version that widened their feature set: version 2.0 for Gneiss, Mica, Granite, Magma and Geode, and version 3.0 for Caldera, Obsidian and Strata. Each is tested to render sessions from the previous major version bit-identically. The other 2.0 releases add A/B, undo/redo, hover tips and help to the earlier plugins, a Ducking style to Slate and an Inf:1 ratio to Schist.
 
@@ -153,4 +153,4 @@ The [`site/`](site) folder is a static website for the series (no build step): t
 
 ## License
 
-The plugins and this index are released under the [MIT License](LICENSE). © 2026 Nate Houk / Epsilon Records.
+The plugins and this index are released under the [MIT License](LICENSE). © 2026 Nate Houk / Epsilon Records. Each plugin is built with [DPF](https://github.com/DISTRHO/DPF) and its bundled NanoVG, which are under the ISC license; the License section of each plugin's README lists its third-party components.
