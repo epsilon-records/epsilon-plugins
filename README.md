@@ -141,7 +141,7 @@ Each plugin was written from scratch, working only from public press releases, p
 
 Several plugins have had a major version that widened their feature set: version 2.0 for Gneiss, Mica, Granite, Magma and Geode, and version 3.0 for Caldera, Obsidian and Strata. Each is tested to render sessions from the previous major version bit-identically. The other 2.0 releases add A/B, undo/redo, hover tips and help to the earlier plugins, a Ducking style to Slate and an Inf:1 ratio to Schist.
 
-Malachite starts a second line: classic hardware instruments, recreated the same way. It recreates the feature set of the Roland TB-303 (1981). Roland is a trademark of its owner; Epsilon Audio is not affiliated with or endorsed by Roland.
+Malachite starts a second line: classic hardware instruments, recreated the same way.
 
 ## Website
 
