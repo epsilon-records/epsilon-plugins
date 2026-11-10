@@ -18,6 +18,11 @@
   to = "/made.html"
   status = 200
 
+[[redirects]]
+  from = "/subscribed"
+  to = "/subscribed.html"
+  status = 200
+
 # Each plugin's uri in plugins.json (plugins.epsilonrecords.com/<name>) lands on its card.
 
 [[redirects]]

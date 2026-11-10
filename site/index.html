@@ -399,19 +399,18 @@ details.zips[open] summary { margin-bottom: 20px; }
     </div>
   </section>
 
-  <section class="block" id="news" hidden>
+  <section class="block" id="news">
     <div class="wrap">
       <div class="signup">
         <p class="label">Newsletter</p>
         <h2 style="font-family:var(--font-display); font-weight:800; text-transform:uppercase; font-size:var(--step-3); line-height:1">New plugins, presets and sounds</h2>
-        <p style="color:var(--muted)">An occasional email when something new is out: plugin releases, preset packs and track breakdowns from Epsilon Records artists. No tracking pixels; unsubscribe in one click.</p>
-        <form id="signup-form" method="post" target="_blank">
+        <p style="color:var(--muted)">An occasional email when something new is out: plugin releases, preset packs and track breakdowns from Epsilon Records artists. Unsubscribe in one click.</p>
+        <form id="signup-form" action="https://app.kit.com/forms/10170855/subscriptions" method="post" target="_blank" rel="noopener">
           <label class="sr" for="signup-email">Email address</label>
-          <input type="email" name="email" id="signup-email" placeholder="you@example.com" required autocomplete="email">
-          <input type="hidden" name="tag" value="website">
+          <input type="email" name="email_address" id="signup-email" placeholder="you@example.com" required autocomplete="email">
           <button class="btn primary" type="submit">Subscribe</button>
         </form>
-        <small>Sent with <a href="https://buttondown.com" target="_blank" rel="noopener">Buttondown</a>.</small>
+        <small>Subscribing sends your email address to Kit, our newsletter provider, which emails you to confirm.</small>
       </div>
     </div>
   </section>
@@ -578,10 +577,6 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
     ["distort", "Distort", "Saturation and multiband distortion, from warm tape to broken."],
     ["mix", "Mix", "EQ, compression, gating, multiband dynamics and de-essing."],
     ["finish", "Finish", "Space, echo and loudness: a reverb, a tape delay and a limiter."]];
-  // Newsletter (Buttondown username "epsilon"). The account is in Buttondown's review, which blocks new
-  // subscribers, so the section stays hidden until BUTTONDOWN_LIVE is set to true after approval.
-  const BUTTONDOWN_USER = "epsilon";
-  const BUTTONDOWN_LIVE = false;
   const repo = p => "https://github.com/epsilon-records/" + p.id;
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
@@ -718,13 +713,9 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
       document.getElementById("zips").open = true;
     });
 
-  // Newsletter (Buttondown): shown once the account is approved and BUTTONDOWN_LIVE is true.
-  if (BUTTONDOWN_USER && BUTTONDOWN_LIVE) {
-    const f = document.getElementById("signup-form");
-    f.action = "https://buttondown.com/api/emails/embed-subscribe/" + encodeURIComponent(BUTTONDOWN_USER);
-    f.addEventListener("submit", () => plausible("Newsletter signup"));
-    document.getElementById("news").hidden = false;
-  }
+  // Newsletter: a plain form POST to Kit (no Kit script, no cookies from this page). Kit shows its own
+  // confirmation page, emails the subscriber, and redirects to /subscribed once they confirm.
+  document.getElementById("signup-form").addEventListener("submit", () => plausible("Newsletter signup"));
 
   // Analytics events for clicks on anything with data-event (Plausible custom events; no cookies, no personal data).
   document.addEventListener("click", e => {

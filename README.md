@@ -145,7 +145,7 @@ Malachite starts a second line: classic hardware instruments, recreated the same
 
 ## Website
 
-The [`site/`](site) folder is a static website for the series (no build step): the home page, [`install.html`](site/install.html) (install guides and troubleshooting, served at `/install`) and [`made.html`](site/made.html) (how the plugins are made, served at `/made`). It uses [Plausible](https://plausible.io) for cookie-free analytics, including download and task-filter events, and a [Buttondown](https://buttondown.com) newsletter form that appears once `BUTTONDOWN_USER` is set in `site/index.html`. Netlify serves it via [`netlify.toml`](netlify.toml); to preview locally, open `site/index.html` or run `npx serve site`.
+The [`site/`](site) folder is a static website for the series (no build step): the home page, [`install.html`](site/install.html) (install guides and troubleshooting, served at `/install`) and [`made.html`](site/made.html) (how the plugins are made, served at `/made`). It uses [Plausible](https://plausible.io) for cookie-free analytics, including download and task-filter events, and a newsletter form that posts to [Kit](https://kit.com) with a plain HTML form (no Kit script); after a subscriber confirms, Kit redirects them to [`subscribed.html`](site/subscribed.html), served at `/subscribed`. Netlify serves it via [`netlify.toml`](netlify.toml); to preview locally, open `site/index.html` or run `npx serve site`.
 
 ## Machine-readable index
 
