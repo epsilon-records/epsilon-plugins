@@ -12,13 +12,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <title>Epsilon Audio: free audio plugins for producers</title>
 <meta name="description" content="Fifteen free, open-source instruments and effects from Epsilon Records: synths, filters, delay, reverb, distortion, EQ and dynamics. VST3, AU and CLAP for macOS, Windows and Linux.">
-<!-- Plausible: privacy-friendly page analytics (no cookies), plus outbound-link, file-download and custom events -->
-<!-- Privacy-friendly analytics by Plausible -->
-<script async src="https://plausible.io/js/pa-rKcAWi00KyicMzaPgNnBo.js"></script>
-<script>
-  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-  plausible.init()
-</script>
+<script src="/analytics.js" defer></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
@@ -329,7 +323,7 @@ details.zips[open] summary { margin-bottom: 20px; }
           <p class="lede">Fifteen instruments and effects for sound design, mixing and electronic music: synths, filters, a tape delay, a reverb, distortion, an EQ and dynamics. Three operating systems, one installer, and the source for every line.</p>
           <div class="cta">
             <a class="btn primary" href="#plugins">Explore the plugins</a>
-            <a class="btn" href="#download" data-event="Suite CTA">Download the collection</a>
+            <a class="btn" href="#download">Download the collection</a>
           </div>
           <p style="margin-top:16px; font-size:0.92rem; color:var(--muted)">Developer? <a href="https://github.com/epsilon-records/epsilon-plugins" target="_blank" rel="noopener">Read the source</a>: MIT-licensed, built on DPF.</p>
         </div>
@@ -399,19 +393,18 @@ details.zips[open] summary { margin-bottom: 20px; }
     </div>
   </section>
 
-  <section class="block" id="news" hidden>
+  <section class="block" id="news">
     <div class="wrap">
       <div class="signup">
         <p class="label">Newsletter</p>
         <h2 style="font-family:var(--font-display); font-weight:800; text-transform:uppercase; font-size:var(--step-3); line-height:1">New plugins, presets and sounds</h2>
-        <p style="color:var(--muted)">An occasional email when something new is out: plugin releases, preset packs and track breakdowns from Epsilon Records artists. No tracking pixels; unsubscribe in one click.</p>
-        <form id="signup-form" method="post" target="_blank">
+        <p style="color:var(--muted)">An occasional email when something new is out: plugin releases, preset packs and track breakdowns from Epsilon Records artists. Unsubscribe in one click.</p>
+        <form id="signup-form" action="https://app.kit.com/forms/10170855/subscriptions" method="post" target="_blank" rel="noopener">
           <label class="sr" for="signup-email">Email address</label>
-          <input type="email" name="email" id="signup-email" placeholder="you@example.com" required autocomplete="email">
-          <input type="hidden" name="tag" value="website">
+          <input type="email" name="email_address" id="signup-email" placeholder="you@example.com" required autocomplete="email">
           <button class="btn primary" type="submit">Subscribe</button>
         </form>
-        <small>Sent with <a href="https://buttondown.com" target="_blank" rel="noopener">Buttondown</a>.</small>
+        <small>Subscribing sends your email address to Kit, our newsletter provider, which emails you to confirm.</small>
       </div>
     </div>
   </section>
@@ -529,6 +522,7 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
     <span class="links">
       <a href="install">Install guides</a>
       <a href="made">How they're made</a>
+      <a href="https://epsilonrecords.com/privacy/">Privacy</a>
       <a href="https://github.com/epsilon-records/epsilon-plugins/discussions" target="_blank" rel="noopener">Discussions</a>
       <a href="https://github.com/epsilon-records/epsilon-plugins" target="_blank" rel="noopener">Source</a>
       <a href="https://github.com/epsilon-records/epsilon-plugins/blob/main/LICENSE" target="_blank" rel="noopener">License</a>
@@ -578,10 +572,6 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
     ["distort", "Distort", "Saturation and multiband distortion, from warm tape to broken."],
     ["mix", "Mix", "EQ, compression, gating, multiband dynamics and de-essing."],
     ["finish", "Finish", "Space, echo and loudness: a reverb, a tape delay and a limiter."]];
-  // Newsletter (Buttondown username "epsilon"). The account is in Buttondown's review, which blocks new
-  // subscribers, so the section stays hidden until BUTTONDOWN_LIVE is set to true after approval.
-  const BUTTONDOWN_USER = "epsilon";
-  const BUTTONDOWN_LIVE = false;
   const repo = p => "https://github.com/epsilon-records/" + p.id;
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
@@ -606,7 +596,7 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
           <dt>CLAP ID</dt><dd><code>com.epsilonrecords.${p.id}</code></dd>
         </dl>
         <div class="actions">
-          <a class="btn primary" href="#download" data-event="Card download" data-plugin="${p.name}">Download</a>
+          <a class="btn primary" href="#download">Download</a>
           <a class="btn" href="${repo(p)}/blob/main/docs/MANUAL.md" target="_blank" rel="noopener">Manual</a>
           <a class="btn" href="${repo(p)}" target="_blank" rel="noopener">Source</a>
         </div>
@@ -629,13 +619,12 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
     filters.querySelectorAll(".chip").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
     grid.querySelectorAll(".card").forEach(card => { card.hidden = !(c === "all" || card.dataset.cat === c); });
     blurb.textContent = CATS.find(x => x[0] === c)[2];
-    plausible("Task filter", { props: { task: c } });
   });
 
 
   // Releases
   document.getElementById("releases").innerHTML = PLUGINS.map(p =>
-    `<a href="${repo(p)}/releases/latest" target="_blank" rel="noopener" data-event="Download" data-kind="zip" data-plugin="${p.name}"><b>${esc(p.name)}</b><span>v${p.version} ↗</span></a>`).join("");
+    `<a href="${repo(p)}/releases/latest" target="_blank" rel="noopener"><b>${esc(p.name)}</b><span>v${p.version} ↗</span></a>`).join("");
 
   // Platform tabs
   const NAMES = PLUGINS.map(p => p.name).join(",");
@@ -700,7 +689,7 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
       const order = [detected, ...["mac", "win", "linux"].filter(o => o !== detected)];
       const buttons = order.map(os => {
         const a = rel.assets.find(x => x.name.endsWith(SUITE_ASSET[os][0])); if (!a) return "";
-        return `<a class="btn${os === detected ? " primary" : ""}" href="${a.browser_download_url}" data-event="Download" data-kind="suite" data-os="${os}" title="${esc(SUITE_ASSET[os][1])}">${OS_NAME[os]}${os === detected ? " (yours)" : ""} · ${MB(a.size)}</a>`;
+        return `<a class="btn${os === detected ? " primary" : ""}" href="${a.browser_download_url}" title="${esc(SUITE_ASSET[os][1])}">${OS_NAME[os]}${os === detected ? " (yours)" : ""} · ${MB(a.size)}</a>`;
       }).join("");
       document.getElementById("suite-buttons").innerHTML = buttons;
       const sums = rel.assets.find(x => x.name === "SHA256SUMS.txt");
@@ -718,20 +707,8 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
       document.getElementById("zips").open = true;
     });
 
-  // Newsletter (Buttondown): shown once the account is approved and BUTTONDOWN_LIVE is true.
-  if (BUTTONDOWN_USER && BUTTONDOWN_LIVE) {
-    const f = document.getElementById("signup-form");
-    f.action = "https://buttondown.com/api/emails/embed-subscribe/" + encodeURIComponent(BUTTONDOWN_USER);
-    f.addEventListener("submit", () => plausible("Newsletter signup"));
-    document.getElementById("news").hidden = false;
-  }
-
-  // Analytics events for clicks on anything with data-event (Plausible custom events; no cookies, no personal data).
-  document.addEventListener("click", e => {
-    const el = e.target.closest("[data-event]"); if (!el) return;
-    const props = {}; ["kind", "os", "plugin"].forEach(k => { if (el.dataset[k]) props[k] = el.dataset[k]; });
-    plausible(el.dataset.event, { props });
-  });
+  // Newsletter: the form is a plain HTML POST to Kit (no Kit script, no cookies from this page). Kit shows its
+  // own confirmation page, emails the subscriber, and redirects to epsilonrecords.com/subscribed once they confirm.
 
   // Copy buttons
   document.addEventListener("click", e => {
