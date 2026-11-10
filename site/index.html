@@ -331,7 +331,7 @@ details.zips[open] summary { margin-bottom: 20px; }
             <a class="btn primary" href="#plugins">Explore the plugins</a>
             <a class="btn" href="#download" data-event="Suite CTA">Download the collection</a>
           </div>
-          <p style="margin-top:16px; font-size:0.92rem; color:var(--muted)">Developer? <a href="https://github.com/natehouk/epsilon-plugins" target="_blank" rel="noopener">Read the source</a>: MIT-licensed, built on DPF.</p>
+          <p style="margin-top:16px; font-size:0.92rem; color:var(--muted)">Developer? <a href="https://github.com/epsilon-records/epsilon-plugins" target="_blank" rel="noopener">Read the source</a>: MIT-licensed, built on DPF.</p>
         </div>
         <div class="facts">
           <div><strong class="num">15</strong><small>plugins, 3 instruments and 12 effects</small></div>
@@ -516,7 +516,7 @@ make -C plugins/&lt;Name&gt;
 # Windows cross-build
 make -C plugins/&lt;Name&gt; WINDOWS=true \
   CC=x86_64-w64-mingw32-gcc CXX=x86_64-w64-mingw32-g++</pre><button class="copy" data-copy="build-code" type="button">Copy</button></div>
-        <p class="note" style="margin-top:20px">Need the catalogue in a script? <a href="https://github.com/natehouk/epsilon-plugins/blob/main/plugins.json" target="_blank" rel="noopener"><code>plugins.json</code></a> lists every plugin with its repo, type, version, formats and CLAP ID.</p>
+        <p class="note" style="margin-top:20px">Need the catalogue in a script? <a href="https://github.com/epsilon-records/epsilon-plugins/blob/main/plugins.json" target="_blank" rel="noopener"><code>plugins.json</code></a> lists every plugin with its repo, type, version, formats and CLAP ID.</p>
       </div>
     </div>
   </section>
@@ -529,9 +529,9 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
     <span class="links">
       <a href="install">Install guides</a>
       <a href="made">How they're made</a>
-      <a href="https://github.com/natehouk/epsilon-plugins/discussions" target="_blank" rel="noopener">Discussions</a>
-      <a href="https://github.com/natehouk/epsilon-plugins" target="_blank" rel="noopener">Source</a>
-      <a href="https://github.com/natehouk/epsilon-plugins/blob/main/LICENSE" target="_blank" rel="noopener">License</a>
+      <a href="https://github.com/epsilon-records/epsilon-plugins/discussions" target="_blank" rel="noopener">Discussions</a>
+      <a href="https://github.com/epsilon-records/epsilon-plugins" target="_blank" rel="noopener">Source</a>
+      <a href="https://github.com/epsilon-records/epsilon-plugins/blob/main/LICENSE" target="_blank" rel="noopener">License</a>
       <a href="https://github.com/DISTRHO/DPF" target="_blank" rel="noopener">DPF</a>
     </span>
   </div>
@@ -582,7 +582,7 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
   // subscribers, so the section stays hidden until BUTTONDOWN_LIVE is set to true after approval.
   const BUTTONDOWN_USER = "epsilon";
   const BUTTONDOWN_LIVE = false;
-  const repo = p => "https://github.com/natehouk/" + p.id;
+  const repo = p => "https://github.com/epsilon-records/" + p.id;
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
   document.getElementById("preset-total").textContent = PLUGINS.reduce((a, p) => a + p.presets, 0);
@@ -692,7 +692,7 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
   const SUITE_ASSET = { mac: [".pkg", "macOS 10.13+ · Apple Silicon and Intel"], win: [".exe", "Windows 10 and 11 · x64"], linux: [".tar.gz", "Linux · x86_64"] };
   const OS_NAME = { mac: "macOS", win: "Windows", linux: "Linux" };
   const MB = n => (n / 1048576).toFixed(0) + " MB";
-  fetch("https://api.github.com/repos/natehouk/epsilon-plugins/releases?per_page=20")
+  fetch("https://api.github.com/repos/epsilon-records/epsilon-plugins/releases?per_page=20")
     .then(r => r.ok ? r.json() : Promise.reject(r.status))
     .then(list => {
       const rel = list.find(r => !r.draft && /^suite-/.test(r.tag_name));

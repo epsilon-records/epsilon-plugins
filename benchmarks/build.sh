@@ -9,9 +9,9 @@ mkdir -p "$work" && cd "$work"
 : > versions.txt
 for name in $(python3 -c "import json;print(' '.join(p['name'] for p in json.load(open('$here/plugins.json'))['plugins']))"); do
   repo="$(echo "$name" | tr 'A-Z' 'a-z')"
-  tag="$(git ls-remote --tags --refs "https://github.com/natehouk/$repo" 'v*' | awk -F/ '{print $3}' | sort -V | tail -1)"
+  tag="$(git ls-remote --tags --refs "https://github.com/epsilon-records/$repo" 'v*' | awk -F/ '{print $3}' | sort -V | tail -1)"
   rm -rf "$repo"
-  git -c advice.detachedHead=false clone -q --depth 1 --branch "$tag" "https://github.com/natehouk/$repo" "$repo"
+  git -c advice.detachedHead=false clone -q --depth 1 --branch "$tag" "https://github.com/epsilon-records/$repo" "$repo"
   ln -sfn "$work/dpf" "$repo/dpf"
   make -C "$repo/plugins/$name" vst3 -j"$(nproc)" > "$repo/build.log" 2>&1
   echo "$name $tag $(git -C "$repo" rev-parse --short HEAD)" | tee -a versions.txt
