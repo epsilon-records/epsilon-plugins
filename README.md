@@ -46,7 +46,7 @@ Monolith ──filter──► Caldera ──filters──► Strata (filters in
 - **Talc** is a de-esser with single-vocal detection and linear-phase split-band processing.
 - **Schist** is a multiband compressor and expander with freely placed bands.
 - **Geode** is the first reverb, an algorithmic design with a decay rate EQ.
-- **Malachite** is an acid bass synth with its own step sequencer, the first plugin based on classic hardware rather than a FabFilter product.
+- **Malachite** is an acid bass synth with its own step sequencer, the first plugin based on classic hardware.
 
 ## Download
 
@@ -135,36 +135,13 @@ Measured from each plugin's Linux x64 VST3 at its release tag, rendered offline 
 
 <!-- benchmarks:end -->
 
-## Lineage and clean-room note
+## Clean-room note
 
-The series works through FabFilter's catalogue in release order, recreating each product's feature set as a clean-room design. It now covers all fourteen products up to Pro-R:
+Each plugin was written from scratch, working only from public press releases, product descriptions, manuals and contemporary reviews. No third-party code, binaries, firmware, presets, artwork or trademarks were used, and every interface is an original design.
 
-| Epsilon plugin | Feature set of | Original release |
-|---|---|---|
-| Monolith | FabFilter One | 2002 |
-| Caldera | FabFilter Volcano | May 2005 |
-| Obsidian | FabFilter Twin | December 2005 |
-| Strata | FabFilter Timeless | October 2006 |
-| Basalt | FabFilter Simplon | October 2006 |
-| Gneiss | FabFilter Pro-C | August 2007 |
-| Mica | FabFilter Pro-Q | November 2009 |
-| Flint | FabFilter Micro | January 2010 |
-| Granite | FabFilter Pro-L | October 2010 |
-| Slate | FabFilter Pro-G | May 2011 |
-| Magma | FabFilter Saturn | March 2012 |
-| Talc | FabFilter Pro-DS | October 2012 |
-| Schist | FabFilter Pro-MB | October 2013 |
-| Geode | FabFilter Pro-R | November 2016 |
+Several plugins have had a major version that widened their feature set: version 2.0 for Gneiss, Mica, Granite, Magma and Geode, and version 3.0 for Caldera, Obsidian and Strata. Each is tested to render sessions from the previous major version bit-identically. The other 2.0 releases add A/B, undo/redo, hover tips and help to the earlier plugins, a Ducking style to Slate and an Inf:1 ratio to Schist.
 
-For Gneiss, Mica, Granite, Magma and Geode, version 2.0 brings the plugin up to the feature set of the current FabFilter product (Pro-C 3, Pro-Q 4, Pro-L 2, Saturn 2 and Pro-R 2), and Caldera, Obsidian and Strata reach it in 3.0 (Volcano 3, Twin 3 and Timeless 3), all still as clean-room designs. Each of these is tested to render sessions from the previous major version bit-identically. The other 2.0 releases add A/B, undo/redo, hover tips and help to the earlier plugins, a Ducking style to Slate and an Inf:1 ratio to Schist.
-
-Malachite starts a second line: classic hardware instruments, recreated the same way.
-
-| Epsilon plugin | Feature set of | Original release |
-|---|---|---|
-| Malachite | Roland TB-303 | 1981 |
-
-Each plugin was written from scratch, working only from public press releases, product descriptions, manuals and contemporary reviews. No FabFilter or Roland code, binaries, firmware, presets, artwork or trademarks were used, and every interface is an original design. FabFilter and Roland are trademarks of their owners; Epsilon Audio is not affiliated with or endorsed by either.
+Malachite starts a second line: classic hardware instruments, recreated the same way. It recreates the feature set of the Roland TB-303 (1981). Roland is a trademark of its owner; Epsilon Audio is not affiliated with or endorsed by Roland.
 
 ## Website
 
