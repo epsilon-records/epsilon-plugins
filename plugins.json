@@ -36,8 +36,7 @@
       "summary": "Subtractive synthesizer, mono or 10-voice poly.",
       "factory_presets": 42,
       "uri": "https://plugins.epsilonrecords.com/monolith",
-      "clap_id": "com.epsilonrecords.monolith",
-      "feature_set_of": "FabFilter One (2002)"
+      "clap_id": "com.epsilonrecords.monolith"
     },
     {
       "name": "Caldera",
@@ -53,8 +52,7 @@
       "factory_presets": 57,
       "accepts_midi": true,
       "uri": "https://plugins.epsilonrecords.com/caldera",
-      "clap_id": "com.epsilonrecords.caldera",
-      "feature_set_of": "FabFilter Volcano (2005)"
+      "clap_id": "com.epsilonrecords.caldera"
     },
     {
       "name": "Obsidian",
@@ -69,8 +67,7 @@
       "summary": "Polyphonic four-oscillator, four-filter synthesizer with effects and an arpeggiator, up to 64 voices.",
       "factory_presets": 60,
       "uri": "https://plugins.epsilonrecords.com/obsidian",
-      "clap_id": "com.epsilonrecords.obsidian",
-      "feature_set_of": "FabFilter Twin (2005)"
+      "clap_id": "com.epsilonrecords.obsidian"
     },
     {
       "name": "Strata",
@@ -86,8 +83,7 @@
       "factory_presets": 60,
       "accepts_midi": true,
       "uri": "https://plugins.epsilonrecords.com/strata",
-      "clap_id": "com.epsilonrecords.strata",
-      "feature_set_of": "FabFilter Timeless (2006)"
+      "clap_id": "com.epsilonrecords.strata"
     },
     {
       "name": "Basalt",
@@ -102,8 +98,7 @@
       "summary": "Stereo dual filter for live use.",
       "factory_presets": 31,
       "uri": "https://plugins.epsilonrecords.com/basalt",
-      "clap_id": "com.epsilonrecords.basalt",
-      "feature_set_of": "FabFilter Simplon (2006)"
+      "clap_id": "com.epsilonrecords.basalt"
     },
     {
       "name": "Gneiss",
@@ -119,8 +114,7 @@
       "factory_presets": 46,
       "sidechain": true,
       "uri": "https://plugins.epsilonrecords.com/gneiss",
-      "clap_id": "com.epsilonrecords.gneiss",
-      "feature_set_of": "FabFilter Pro-C (2007)"
+      "clap_id": "com.epsilonrecords.gneiss"
     },
     {
       "name": "Mica",
@@ -135,8 +129,7 @@
       "summary": "24-band stereo equalizer with dynamic and spectral EQ, EQ Match and three phase modes.",
       "factory_presets": 39,
       "uri": "https://plugins.epsilonrecords.com/mica",
-      "clap_id": "com.epsilonrecords.mica",
-      "feature_set_of": "FabFilter Pro-Q (2009)"
+      "clap_id": "com.epsilonrecords.mica"
     },
     {
       "name": "Flint",
@@ -151,8 +144,7 @@
       "summary": "Small saturating filter with an envelope follower.",
       "factory_presets": 24,
       "uri": "https://plugins.epsilonrecords.com/flint",
-      "clap_id": "com.epsilonrecords.flint",
-      "feature_set_of": "FabFilter Micro (2010)"
+      "clap_id": "com.epsilonrecords.flint"
     },
     {
       "name": "Granite",
@@ -167,8 +159,7 @@
       "summary": "Stereo look-ahead brickwall limiter with true-peak limiting, oversampling, dither and loudness metering.",
       "factory_presets": 40,
       "uri": "https://plugins.epsilonrecords.com/granite",
-      "clap_id": "com.epsilonrecords.granite",
-      "feature_set_of": "FabFilter Pro-L (2010)"
+      "clap_id": "com.epsilonrecords.granite"
     },
     {
       "name": "Slate",
@@ -185,8 +176,7 @@
       "accepts_midi": true,
       "sidechain": true,
       "uri": "https://plugins.epsilonrecords.com/slate",
-      "clap_id": "com.epsilonrecords.slate",
-      "feature_set_of": "FabFilter Pro-G (2011)"
+      "clap_id": "com.epsilonrecords.slate"
     },
     {
       "name": "Magma",
@@ -203,8 +193,7 @@
       "accepts_midi": true,
       "sidechain": true,
       "uri": "https://plugins.epsilonrecords.com/magma",
-      "clap_id": "com.epsilonrecords.magma",
-      "feature_set_of": "FabFilter Saturn (2012)"
+      "clap_id": "com.epsilonrecords.magma"
     },
     {
       "name": "Talc",
@@ -219,8 +208,7 @@
       "summary": "De-esser with single-vocal detection and linear-phase split-band processing.",
       "factory_presets": 22,
       "uri": "https://plugins.epsilonrecords.com/talc",
-      "clap_id": "com.epsilonrecords.talc",
-      "feature_set_of": "FabFilter Pro-DS (2012)"
+      "clap_id": "com.epsilonrecords.talc"
     },
     {
       "name": "Schist",
@@ -236,8 +224,7 @@
       "factory_presets": 41,
       "sidechain": true,
       "uri": "https://plugins.epsilonrecords.com/schist",
-      "clap_id": "com.epsilonrecords.schist",
-      "feature_set_of": "FabFilter Pro-MB (2013)"
+      "clap_id": "com.epsilonrecords.schist"
     },
     {
       "name": "Geode",
@@ -252,8 +239,7 @@
       "summary": "Algorithmic reverb with three algorithms, a decay rate EQ, a post EQ and impulse response import.",
       "factory_presets": 46,
       "uri": "https://plugins.epsilonrecords.com/geode",
-      "clap_id": "com.epsilonrecords.geode",
-      "feature_set_of": "FabFilter Pro-R (2016)"
+      "clap_id": "com.epsilonrecords.geode"
     },
     {
       "name": "Malachite",
@@ -268,8 +254,7 @@
       "summary": "Acid bass synthesizer with a sub oscillator, accent, slide and a 16-step pattern sequencer with 64 patterns and scales.",
       "factory_presets": 22,
       "uri": "https://plugins.epsilonrecords.com/malachite",
-      "clap_id": "com.epsilonrecords.malachite",
-      "feature_set_of": "Roland TB-303 (1981)"
+      "clap_id": "com.epsilonrecords.malachite"
     }
   ],
   "tasks": [
