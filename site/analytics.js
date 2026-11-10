@@ -4,8 +4,8 @@
   "use strict";
   try {
     // Public client identifier, NOT an API credential: the Cloudflare Web Analytics site token for
-    // plugins.epsilonrecords.com. Empty string disables all vendor requests (the state until Nate supplies it).
-    const token = "";
+    // plugins.epsilonrecords.com. Empty string disables all vendor requests.
+    const token = "95559ccd697549abad0804993d521dbe";
     if (!/^[a-f0-9]{32}$/i.test(token || "")) return;
 
     // Explicit public content routes, not a prefix rule. Review additions for URL exposure.
