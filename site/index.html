@@ -82,7 +82,9 @@ body {
 }
 @media (min-width: 720px) { .wrap { padding-left: max(32px, env(safe-area-inset-left, 0px)); padding-right: max(32px, env(safe-area-inset-right, 0px)); } }
 a { color: var(--accent); text-underline-offset: 3px; }
-a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+a:focus-visible, button:focus-visible, summary:focus-visible, [tabindex="0"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+.skip { position: absolute; left: 16px; top: -64px; z-index: 10; background: var(--accent); color: var(--accent-ink); padding: 12px 16px; border-radius: var(--radius); font-weight: 600; text-decoration: none; }
+.skip:focus { top: 12px; }
 h1, h2, h3 { text-wrap: balance; margin: 0; }
 p { margin: 0; }
 .label {
@@ -100,14 +102,13 @@ header.top {
   border-bottom: 1px solid var(--line);
 }
 header.top .wrap { display: flex; align-items: center; gap: 24px; padding-block: 12px; }
-.brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; color: var(--ink); }
+.brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; color: var(--ink); padding-block: 12px; min-height: 44px; }
 .brand b { font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1; }
 .brand span { font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.06em; }
-nav.links { margin-left: auto; display: flex; gap: 20px; flex-wrap: wrap; }
-nav.links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
-nav.links a:hover { color: var(--ink); }
-@media (max-width: 640px) { nav.links .opt { display: none; } .brand span { display: none; } }
-@media (max-width: 640px) { .brand b { font-size: 1.2rem; white-space: nowrap; } nav.links { gap: 14px; flex-wrap: nowrap; } nav.links a { white-space: nowrap; font-size: 0.85rem; } }
+nav.links { margin-left: auto; display: flex; gap: 0 20px; flex-wrap: wrap; }
+nav.links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; padding-block: 12px; }
+nav.links a:hover, nav.links a[aria-current] { color: var(--ink); }
+@media (max-width: 640px) { .brand span { display: none; } .brand b { font-size: 1.2rem; white-space: nowrap; } nav.links { gap: 0 14px; } nav.links a { font-size: 0.85rem; } }
 
 
 /* Hero */
@@ -153,7 +154,7 @@ section.block { padding-block: 72px; border-top: 1px solid var(--line); }
 .chip {
   font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase;
   border: 1px solid var(--line); background: var(--surface); color: var(--muted);
-  padding: 7px 12px; border-radius: 999px; cursor: pointer;
+  padding: 7px 12px; border-radius: 999px; cursor: pointer; min-height: 44px; display: inline-flex; align-items: center;
 }
 .chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 .chip .n { opacity: 0.6; margin-left: 4px; }
@@ -178,7 +179,7 @@ section.block { padding-block: 72px; border-top: 1px solid var(--line); }
 .card dt { font-family: var(--font-mono); color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.72rem; padding-top: 2px; }
 .card dd { margin: 0; font-variant-numeric: tabular-nums; min-width: 0; overflow-wrap: anywhere; }
 .card .actions { margin-top: auto; padding-top: 8px; display: flex; gap: 10px; flex-wrap: wrap; }
-.card .actions .btn { padding: 8px 14px; font-size: 0.88rem; }
+.card .actions .btn { padding: 8px 14px; font-size: 0.88rem; min-height: 44px; }
 
 /* Lineage */
 .lineage-wrap { display: grid; gap: 32px; grid-template-columns: 1fr; }
@@ -204,6 +205,7 @@ section.block { padding-block: 72px; border-top: 1px solid var(--line); }
 .tab {
   background: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px;
   padding: 10px 16px; font-family: var(--font-body); font-weight: 600; font-size: 1rem; color: var(--muted); cursor: pointer; white-space: nowrap;
+  min-height: 44px;
 }
 .tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
 .tab .you { font-family: var(--font-mono); font-size: 0.68rem; color: var(--accent); margin-left: 6px; letter-spacing: 0.06em; text-transform: uppercase; }
@@ -216,7 +218,7 @@ section.block { padding-block: 72px; border-top: 1px solid var(--line); }
   content: counter(s); font-family: var(--font-display); font-weight: 800; font-size: 1.4rem; line-height: 1.1;
   color: var(--accent);
 }
-.steps li > div { min-width: 0; display: grid; gap: 6px; }
+.steps li > div { min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; }
 .steps h3 { font-size: 1rem; font-weight: 600; }
 .steps p { color: var(--muted); font-size: 0.95rem; }
 .formats { display: flex; gap: 6px; flex-wrap: wrap; }
@@ -234,6 +236,7 @@ section.block { padding-block: 72px; border-top: 1px solid var(--line); }
 .code .copy {
   position: absolute; top: 8px; right: 8px; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase;
   background: transparent; color: var(--code-fg); border: 1px solid color-mix(in srgb, var(--code-fg) 35%, transparent); border-radius: 4px; padding: 4px 8px; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 44px;
 }
 .code .copy:hover { border-color: var(--code-fg); }
 .note { border-left: 2px solid var(--accent); padding: 4px 0 4px 14px; color: var(--muted); font-size: 0.92rem; }
@@ -271,6 +274,7 @@ section.block { padding-block: 72px; border-top: 1px solid var(--line); }
 footer { border-top: 1px solid var(--line); padding-block: 32px 48px; }
 footer .wrap { display: flex; flex-wrap: wrap; gap: 16px 32px; justify-content: space-between; color: var(--muted); font-size: 0.88rem; }
 footer .links { display: flex; gap: 20px; flex-wrap: wrap; }
+footer .links a { padding-block: 12px; }
 
 /* Task filter: what you want to do, then the plugins for it */
 .task-blurb { color: var(--muted); font-size: 0.95rem; margin: -12px 0 24px; min-height: 1.6em; }
@@ -301,14 +305,15 @@ details.zips[open] summary { margin-bottom: 20px; }
 
 </head>
 <body>
+<a class="skip" href="#top">Skip to content</a>
 <header class="top">
   <div class="wrap">
     <a class="brand" href="#top"><b>Epsilon Audio</b><span>by Epsilon Records</span></a>
     <nav class="links" aria-label="Sections">
-      <a href="#plugins" class="opt">Plugins</a>
+      <a href="#plugins">Plugins</a>
       <a href="#download">Download</a>
       <a href="install">Install guides</a>
-      <a href="made" class="opt">How they're made</a>
+      <a href="made">How they're made</a>
     </nav>
   </div>
 </header>
@@ -417,7 +422,7 @@ details.zips[open] summary { margin-bottom: 20px; }
         <p>Monolith's filter runs through most of the series. Later plugins borrow whole systems from earlier ones, so a sound you learn in one carries into the next.</p>
       </div>
       <div class="lineage-wrap">
-        <div class="diagram">
+        <div class="diagram" tabindex="0" role="region" aria-label="Plugin lineage, a diagram that scrolls sideways">
           <svg viewBox="0 0 720 446" role="img" aria-labelledby="lin-t">
             <title id="lin-t">Lineage: Monolith's filter feeds Caldera, Obsidian and Flint. Caldera's filters feed Strata and, simplified, Basalt. Obsidian's modulation feeds Strata. Gneiss, Mica, Granite, Slate, Magma, Talc, Schist, Geode and Malachite stand on their own.</title>
             <defs>
@@ -503,7 +508,7 @@ details.zips[open] summary { margin-bottom: 20px; }
           <h3>Compile with DPF</h3>
           <p>All fifteen are built on <a href="https://github.com/DISTRHO/DPF" target="_blank" rel="noopener">DPF</a>. Clone a plugin's repo, add DPF, then run make. On macOS this also builds the AU.</p>
         </div>
-        <div class="code"><pre id="build-code">git clone --recursive https://github.com/DISTRHO/DPF.git dpf
+        <div class="code"><pre id="build-code" tabindex="0" aria-label="DPF build commands">git clone --recursive https://github.com/DISTRHO/DPF.git dpf
 make -C plugins/&lt;Name&gt;
 
 # Windows cross-build
@@ -659,11 +664,11 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
     steps.innerHTML = `
       <li><div><h3>Download the ${esc(o.zip)} zip</h3><p>From the plugin's Releases page. It contains:</p><div class="formats">${o.formats.map(f => `<span class="fmt">${f}</span>`).join("")}</div></div></li>
       <li><div><h3>Copy each format to its folder</h3>
-        <div class="table-scroll"><table class="paths"><thead><tr><th>Format</th><th>File</th><th>Folder</th></tr></thead><tbody>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Where each plugin format lives"><table class="paths"><thead><tr><th>Format</th><th>File</th><th>Folder</th></tr></thead><tbody>
         ${o.rows.map(r => `<tr><td>${r[0]}</td><td><code>${esc(r[1])}</code></td><td><code>${esc(r[2])}</code></td></tr>`).join("")}
         </tbody></table></div></div></li>
       <li><div><h3>${esc(o.extra.title)}</h3><p>${esc(o.extra.text)}</p>
-        ${o.extra.code ? `<div class="code"><pre id="os-code">${esc(o.extra.code)}</pre><button class="copy" data-copy="os-code" type="button">Copy</button></div>` : ""}
+        ${o.extra.code ? `<div class="code"><pre id="os-code" tabindex="0" aria-label="Install command for the selected system">${esc(o.extra.code)}</pre><button class="copy" data-copy="os-code" type="button">Copy</button></div>` : ""}
       </div></li>`;
   }
   tabs.querySelector(`[data-os="${detected}"]`).insertAdjacentHTML("beforeend", '<span class="you">yours</span>');
