@@ -15,19 +15,20 @@
 <script src="/analytics.js" defer></script>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <header class="top">
   <div class="wrap">
     <a class="brand" href="/"><b>Epsilon Audio</b></a>
     <nav class="links" aria-label="Pages">
-      <a href="/#plugins" class="opt">Plugins</a>
+      <a href="/#plugins">Plugins</a>
       <a href="/#download">Download</a>
       <a href="install" aria-current="page">Install guides</a>
-      <a href="made" class="opt">How they're made</a>
+      <a href="made">How they're made</a>
     </nav>
   </div>
 </header>
 
-<main>
+<main id="main">
   <div class="wrap">
     <p class="label">Install guides</p>
     <h1>Install, then find them in your DAW</h1>
@@ -104,7 +105,7 @@
       <p>Check that the format your DAW uses is installed (Logic needs the Audio Unit; Ableton Live needs VST3 or AU; Bitwig and Reaper can use CLAP), that the DAW scans the standard folders listed above, and rescan. 32-bit hosts can't load the plugins; they are 64-bit only.</p></details>
     <details id="damaged"><summary>macOS: "is damaged and can't be opened" or "can't be verified"</summary>
       <p>macOS quarantines plugins copied from a downloaded zip until the builds are notarized. Use the collection installer, which avoids this, or clear the flag for every Epsilon Audio plugin in Terminal:</p>
-      <pre>xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/*/{Monolith,Caldera,Obsidian,Strata,Basalt,Gneiss,Mica,Flint,Granite,Slate,Magma,Talc,Schist,Geode,Malachite}*</pre></details>
+      <pre tabindex="0" aria-label="Terminal command to clear the quarantine flag">xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/*/{Monolith,Caldera,Obsidian,Strata,Basalt,Gneiss,Mica,Flint,Granite,Slate,Magma,Talc,Schist,Geode,Malachite}*</pre></details>
     <details><summary>Logic Pro: "failed validation" or the plugin is greyed out</summary>
       <p>Open <b>Logic Pro › Settings › Plug-in Manager</b>, select the plugin and click <b>Reset &amp; Rescan Selection</b>. If it still fails, reinstall it with the collection installer and restart Logic.</p></details>
     <details><summary>Windows: SmartScreen blocks the installer</summary>
@@ -115,7 +116,7 @@
       <p>Caldera, Strata, Magma and Slate react to MIDI for key tracking, triggered envelopes and gating. Route a MIDI track to the plugin (in Logic, load it as an AU MIDI-controlled Effect), and check that its <b>MIDI</b> button is on.</p></details>
     <details><summary>Checking a download</summary>
       <p>Every release lists <code>SHA256SUMS.txt</code>. In a terminal, in the folder with your download:</p>
-      <pre>shasum -a 256 -c SHA256SUMS.txt --ignore-missing     # macOS
+      <pre tabindex="0" aria-label="Checksum commands per operating system">shasum -a 256 -c SHA256SUMS.txt --ignore-missing     # macOS
 sha256sum -c SHA256SUMS.txt --ignore-missing         # Linux
 Get-FileHash .\Epsilon-Audio-Suite-*.exe              # Windows PowerShell; compare with the file</pre></details>
     <details><summary>Still stuck</summary>
