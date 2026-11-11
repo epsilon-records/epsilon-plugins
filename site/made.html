@@ -10,20 +10,20 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="pages.css">
 <script src="/analytics.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<header class="top">
-  <div class="wrap">
-    <a class="brand" href="/"><b>Epsilon Audio</b></a>
-    <nav class="links" aria-label="Pages">
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 32 32" fill="none"><rect x="6" y="8" width="20" height="3.4" fill="currentColor"/><rect x="10" y="14.3" width="16" height="3.4" fill="currentColor"/><rect x="6" y="20.6" width="20" height="3.4" fill="currentColor"/></svg></span><span>Epsilon Audio</span><span class="by">by Epsilon Records</span></a>
+    <nav class="nav-links" aria-label="Pages">
       <a href="/#plugins">Plugins</a>
-      <a href="/#download">Download</a>
       <a href="install">Install guides</a>
       <a href="made" aria-current="page">How they're made</a>
+      <a class="btn btn-primary btn-sm" href="/#download">Download</a>
     </nav>
   </div>
 </header>
@@ -43,10 +43,20 @@
   </div>
 </main>
 
-<footer>
-  <div class="wrap">
-    <span>© 2026 Nate Houk / Epsilon Records · MIT License</span>
-    <span class="links"><a href="/">Plugins</a><a href="install">Install guides</a><a href="https://epsilonrecords.com/privacy/">Privacy</a><a href="https://github.com/epsilon-records/epsilon-plugins/discussions" target="_blank" rel="noopener">Discussions</a><a href="https://github.com/epsilon-records/epsilon-plugins" target="_blank" rel="noopener">Source</a></span>
+<footer class="site-footer">
+  <div class="wrap footer">
+    <div class="footer-brand">
+      <strong>Epsilon Audio</strong>
+      <span>© 2026 Nate Houk / Epsilon Records · MIT License</span>
+    </div>
+    <nav aria-label="Footer">
+      <a href="/">Plugins</a>
+      <a href="install">Install guides</a>
+      <a href="https://epsilonrecords.com/privacy/">Privacy</a>
+      <a href="https://github.com/epsilon-records/epsilon-plugins/discussions" target="_blank" rel="noopener">Discussions</a>
+      <a href="https://github.com/epsilon-records/epsilon-plugins" target="_blank" rel="noopener">Source</a>
+      <a href="https://epsilonrecords.com/">Epsilon Records</a>
+    </nav>
   </div>
 </footer>
 </body>
