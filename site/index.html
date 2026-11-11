@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="dark">
 <meta property="og:title" content="Epsilon Audio: free plugins for producers who make their own sound">
 <meta property="og:description" content="Fifteen free, open-source instruments and effects from Epsilon Records: synths, filters, delay, reverb, distortion, EQ and dynamics. VST3, AU and CLAP for macOS, Windows and Linux.">
 <meta property="og:image" content="https://plugins.epsilonrecords.com/img/obsidian.webp">
@@ -21,7 +21,7 @@
    boundaries are waveforms; below it, specimen cards, a lineage chart and field notes. */
 /* Epsilon family tokens (knowledge shared/design/tokens.css), matched to epsilonrecords.com:
    dark ground, IBM Plex Sans + Mono, thin rules, square corners. The plugins site keeps
-   its own accent, malachite, as AudioKit keeps amber. Light follows the visitor's system. */
+   its own accent, malachite, as AudioKit keeps amber. Dark only, like the rest of the family. */
 :root {
   color-scheme: dark;
   --bg: #0e0f11; --surface: #16181c; --surface-2: #131519;
@@ -33,37 +33,11 @@
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --font-display: var(--font-body);
   --radius: 0;
-  /* strata: content colours, one per plugin, tuned per theme */
+  /* strata: content colours, one per plugin */
   --l1: #6f523a; --l2: #85613f; --l3: #3a3446; --l4: #8a7759;
   --l5: #3f3e3b; --l6: #5f433f; --l7: #857f60; --l8: #4d3f33;
   --l9: #4b4e52; --l10: #353b44; --l11: #6a3529; --l12: #6e7466; --l13: #574a3e; --l14: #4a4260; --l15: #2c5e46;
   --stratum-label: #efe9dd;
-}
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    color-scheme: light;
-    --bg: #f4f4f2; --surface: #fbfbfa; --surface-2: #ededeb;
-    --line: #d6d7d3; --line-2: #b9bbb6;
-    --text: #17181a; --text-strong: #000000; --soft: #3c3e42; --muted: #5c5f66;
-    --accent: #1c6a57; --on-accent: #ffffff;
-    --code-bg: #17181a; --code-fg: #e6e8e4;
-    --l1: #8e6a4a; --l2: #a77b4f; --l3: #4b4458; --l4: #98805c;
-    --l5: #5c5a56; --l6: #7d5953; --l7: #8f8860; --l8: #6e5a48;
-    --l9: #6b6e72; --l10: #4e5560; --l11: #8a4a3a; --l12: #848c7a; --l13: #7a6a5a; --l14: #6f6386; --l15: #3f8a64;
-    --stratum-label: #f3efe6;
-  }
-}
-:root[data-theme="light"] {
-  color-scheme: light;
-    --bg: #f4f4f2; --surface: #fbfbfa; --surface-2: #ededeb;
-    --line: #d6d7d3; --line-2: #b9bbb6;
-    --text: #17181a; --text-strong: #000000; --soft: #3c3e42; --muted: #5c5f66;
-    --accent: #1c6a57; --on-accent: #ffffff;
-    --code-bg: #17181a; --code-fg: #e6e8e4;
-    --l1: #8e6a4a; --l2: #a77b4f; --l3: #4b4458; --l4: #98805c;
-    --l5: #5c5a56; --l6: #7d5953; --l7: #8f8860; --l8: #6e5a48;
-    --l9: #6b6e72; --l10: #4e5560; --l11: #8a4a3a; --l12: #848c7a; --l13: #7a6a5a; --l14: #6f6386; --l15: #3f8a64;
-    --stratum-label: #f3efe6;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -843,8 +817,6 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
   new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible) restart(); }).observe(cv);
   addEventListener("resize", () => draw(performance.now()));
   reduce.addEventListener?.("change", restart);
-  matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", () => draw(performance.now()));
-  new MutationObserver(() => draw(performance.now())).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   draw(performance.now()); restart();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => draw(performance.now()));
 })();

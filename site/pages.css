@@ -2,7 +2,7 @@
    Tokens and chrome match index.html and the Epsilon family (epsilonrecords.com). */
 /* Epsilon family tokens (knowledge shared/design/tokens.css), matched to epsilonrecords.com:
    dark ground, IBM Plex Sans + Mono, thin rules, square corners. The plugins site keeps
-   its own accent, malachite, as AudioKit keeps amber. Light follows the visitor's system. */
+   its own accent, malachite, as AudioKit keeps amber. Dark only, like the rest of the family. */
 :root {
   color-scheme: dark;
   --bg: #0e0f11; --surface: #16181c; --surface-2: #131519;
@@ -14,24 +14,6 @@
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --font-display: var(--font-body);
   --radius: 0;
-}
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    color-scheme: light;
-    --bg: #f4f4f2; --surface: #fbfbfa; --surface-2: #ededeb;
-    --line: #d6d7d3; --line-2: #b9bbb6;
-    --text: #17181a; --text-strong: #000000; --soft: #3c3e42; --muted: #5c5f66;
-    --accent: #1c6a57; --on-accent: #ffffff;
-    --code-bg: #17181a; --code-fg: #e6e8e4;
-  }
-}
-:root[data-theme="light"] {
-  color-scheme: light;
-    --bg: #f4f4f2; --surface: #fbfbfa; --surface-2: #ededeb;
-    --line: #d6d7d3; --line-2: #b9bbb6;
-    --text: #17181a; --text-strong: #000000; --soft: #3c3e42; --muted: #5c5f66;
-    --accent: #1c6a57; --on-accent: #ffffff;
-    --code-bg: #17181a; --code-fg: #e6e8e4;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
