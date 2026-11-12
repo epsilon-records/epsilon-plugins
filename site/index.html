@@ -334,7 +334,7 @@ details.zips[open] summary { margin-bottom: 20px; }
           <p class="lede">Fifteen instruments and effects for sound design, mixing and electronic music: synths, filters, a tape delay, a reverb, distortion, an EQ and dynamics. Three operating systems, one installer, and the source for every line.</p>
           <div class="cta">
             <a class="btn btn-primary btn-lg" href="#plugins">Explore the plugins</a>
-            <a class="btn btn-lg" href="#download">Download the collection</a>
+            <a class="btn btn-lg" href="#download">Download the plugins</a>
           </div>
           <p class="dev">Developer? <a href="https://github.com/epsilon-records/epsilon-plugins" target="_blank" rel="noopener">Read the source</a>: MIT-licensed, built on DPF.</p>
         </div>
@@ -372,15 +372,15 @@ details.zips[open] summary { margin-bottom: 20px; }
       <div class="block-head">
         <p class="label">Download &amp; install</p>
         <h2>Get them running</h2>
-        <p>One installer puts any or all fifteen plugins in the right folders. Then rescan in your DAW; the <a href="install">install guides</a> show where to look in Ableton Live, Logic Pro, FL Studio, Reaper and Bitwig.</p>
+        <p id="download-intro">Each plugin installs from its own zip today, and one installer for all fifteen is on its way. Then rescan in your DAW; the <a href="install">install guides</a> show where to look.</p>
       </div>
 
       <div class="suite" id="suite">
         <div>
           <p class="label">The collection</p>
-          <h3>One installer, all fifteen plugins</h3>
+          <h3 id="suite-heading">Install the plugins</h3>
         </div>
-        <p id="suite-text">Choose the plugins and formats you want; VST3, AU and CLAP are selected for you.</p>
+        <p id="suite-text">Each plugin has its own zip for macOS, Windows and Linux, below.</p>
         <div class="row" id="suite-buttons"></div>
         <p class="meta" id="suite-meta"></p>
       </div>
@@ -505,7 +505,7 @@ details.zips[open] summary { margin-bottom: 20px; }
           <li><b>MIDI Learn and user presets</b><span>Saved as small text files that load the same on every OS.</span></li>
           <li><b>Published DSP techniques</b><span>PolyBLEP oscillators, Zavalishin topology-preserving state-variable filters, one-pole envelopes.</span></li>
           <li><b>Tests</b><span>In each repository's <code>tests/</code> folder.</span></li>
-          <li><b>MIDI on effects</b><span>Caldera, Strata, Magma and Slate take MIDI for key tracking, triggered envelopes, gate triggering and modulation. In Logic Pro, insert them as AU MIDI-controlled effects; elsewhere, route a MIDI track to the plugin.</span></li>
+          <li><b>MIDI on effects</b><span>Caldera, Strata, Magma and Slate take MIDI for key tracking, triggered envelopes, gate triggering and modulation. Where your host offers MIDI-controlled effects, insert them that way; elsewhere, route a MIDI track to the plugin.</span></li>
         </ul>
       </div>
       <div>
@@ -701,6 +701,9 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
     .then(list => {
       const rel = list.find(r => !r.draft && /^suite-/.test(r.tag_name));
       if (!rel) throw new Error("no suite release");
+      document.getElementById("suite-heading").textContent = "One installer, all fifteen plugins";
+      document.getElementById("download-intro").innerHTML = 'One installer puts any or all fifteen plugins in the right folders. Then rescan in your DAW; the <a href="install">install guides</a> show where to look.';
+      document.getElementById("suite-text").textContent = "Choose the plugins and formats you want; VST3, AU and CLAP are selected for you.";
       const order = [detected, ...["mac", "win", "linux"].filter(o => o !== detected)];
       const buttons = order.map(os => {
         const a = rel.assets.find(x => x.name.endsWith(SUITE_ASSET[os][0])); if (!a) return "";
@@ -718,7 +721,7 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
         document.getElementById("suite-text").textContent = "Unpack the archive and run ./install.sh to install every plugin for your user, or name the ones you want.";
     })
     .catch(() => {
-      document.getElementById("suite-text").textContent = "The collection installer is on its way. Until then, install from the individual zips below.";
+      document.getElementById("suite-text").innerHTML = 'The collection installer is on its way. Until then, install from the individual zips below. Want to know when it is out? <a href="#news">The newsletter</a> says so first.';
       document.getElementById("zips").open = true;
     });
 
