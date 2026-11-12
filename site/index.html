@@ -331,10 +331,10 @@ details.zips[open] summary { margin-bottom: 20px; }
         <div>
           <p class="label">Free · Open source · From Epsilon Records, Amsterdam</p>
           <h1>Free plugins for producers who make their <em>own sound.</em></h1>
-          <p class="lede">Fifteen instruments and effects for sound design, mixing and electronic music: synths, filters, a tape delay, a reverb, distortion, an EQ and dynamics. Three operating systems, one installer, and the source for every line.</p>
+          <p class="lede">Fifteen instruments and effects for sound design, mixing and electronic music: synths, filters, a tape delay, a reverb, distortion, an EQ and dynamics. Three operating systems, and the source for every line.</p>
           <div class="cta">
             <a class="btn btn-primary btn-lg" href="#plugins">Explore the plugins</a>
-            <a class="btn btn-lg" href="#download">Download the collection</a>
+            <a class="btn btn-lg" href="#download">Download the plugins</a>
           </div>
           <p class="dev">Developer? <a href="https://github.com/epsilon-records/epsilon-plugins" target="_blank" rel="noopener">Read the source</a>: MIT-licensed, built on DPF.</p>
         </div>
@@ -359,7 +359,7 @@ details.zips[open] summary { margin-bottom: 20px; }
       <div class="block-head">
         <p class="label">The catalogue</p>
         <h2>Pick a specimen</h2>
-        <p>Start from what you want to do. Every plugin is free, comes with factory presets and a manual, and installs from one collection installer.</p>
+        <p>Start from what you want to do. Every plugin is free and comes with factory presets and a manual.</p>
       </div>
       <div class="filters" role="group" aria-label="Filter plugins by task" id="filters"></div>
       <p class="task-blurb" id="task-blurb" aria-live="polite"></p>
@@ -372,15 +372,15 @@ details.zips[open] summary { margin-bottom: 20px; }
       <div class="block-head">
         <p class="label">Download &amp; install</p>
         <h2>Get them running</h2>
-        <p>One installer puts any or all fifteen plugins in the right folders. Then rescan in your DAW; the <a href="install">install guides</a> show where to look in Ableton Live, Logic Pro, FL Studio, Reaper and Bitwig.</p>
+        <p id="download-intro">Each plugin installs from its own zip today, and one installer for all fifteen is on its way. Then rescan in your DAW; the <a href="install">install guides</a> show where to look.</p>
       </div>
 
       <div class="suite" id="suite">
         <div>
           <p class="label">The collection</p>
-          <h3>One installer, all fifteen plugins</h3>
+          <h3 id="suite-heading">Install the plugins</h3>
         </div>
-        <p id="suite-text">Choose the plugins and formats you want; VST3, AU and CLAP are selected for you.</p>
+        <p id="suite-text">Each plugin has its own zip for macOS, Windows and Linux, below.</p>
         <div class="row" id="suite-buttons"></div>
         <p class="meta" id="suite-meta"></p>
       </div>
@@ -505,7 +505,7 @@ details.zips[open] summary { margin-bottom: 20px; }
           <li><b>MIDI Learn and user presets</b><span>Saved as small text files that load the same on every OS.</span></li>
           <li><b>Published DSP techniques</b><span>PolyBLEP oscillators, Zavalishin topology-preserving state-variable filters, one-pole envelopes.</span></li>
           <li><b>Tests</b><span>In each repository's <code>tests/</code> folder.</span></li>
-          <li><b>MIDI on effects</b><span>Caldera, Strata, Magma and Slate take MIDI for key tracking, triggered envelopes, gate triggering and modulation. In Logic Pro, insert them as AU MIDI-controlled effects; elsewhere, route a MIDI track to the plugin.</span></li>
+          <li><b>MIDI on effects</b><span>Caldera, Strata, Magma and Slate take MIDI for key tracking, triggered envelopes, gate triggering and modulation. Where your host offers MIDI-controlled effects, insert them that way; elsewhere, route a MIDI track to the plugin.</span></li>
         </ul>
       </div>
       <div>
@@ -647,7 +647,7 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
     mac: {
       zip: "macOS 10.13+ (Apple Silicon + Intel)", formats: ["VST3", "AU", "CLAP"],
       rows: [["VST3", ".vst3", "~/Library/Audio/Plug-Ins/VST3"], ["AU", ".component", "~/Library/Audio/Plug-Ins/Components"], ["CLAP", ".clap", "~/Library/Audio/Plug-Ins/CLAP"]],
-      extra: { title: "Clear the quarantine flag", text: "Plugins copied from a zip are quarantined by macOS until the builds are notarized. The collection installer above avoids this step; if you install from zips, one command clears the flag for every Epsilon plugin:", code: `xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/*/{${NAMES}}*` }
+      extra: { title: "Clear the quarantine flag", text: "Plugins copied from a zip are quarantined by macOS until the builds are notarized. Once the collection installer is out it will avoid this step; for zips, one command clears the flag for every Epsilon plugin:", code: `xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/*/{${NAMES}}*` }
     },
     win: {
       zip: "Windows x64", formats: ["VST3", "CLAP", "VST2"],
@@ -696,11 +696,16 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
   const SUITE_ASSET = { mac: [".pkg", "macOS 10.13+ · Apple Silicon and Intel"], win: [".exe", "Windows 10 and 11 · x64"], linux: [".tar.gz", "Linux · x86_64"] };
   const OS_NAME = { mac: "macOS", win: "Windows", linux: "Linux" };
   const MB = n => (n / 1048576).toFixed(0) + " MB";
+  let suiteChecked = false;
   fetch("https://api.github.com/repos/epsilon-records/epsilon-plugins/releases?per_page=20")
     .then(r => r.ok ? r.json() : Promise.reject(r.status))
     .then(list => {
+      suiteChecked = true;
       const rel = list.find(r => !r.draft && /^suite-/.test(r.tag_name));
       if (!rel) throw new Error("no suite release");
+      document.getElementById("suite-heading").textContent = "One installer, all fifteen plugins";
+      document.getElementById("download-intro").innerHTML = 'One installer puts any or all fifteen plugins in the right folders. Then rescan in your DAW; the <a href="install">install guides</a> show where to look.';
+      document.getElementById("suite-text").textContent = "Choose the plugins and formats you want; VST3, AU and CLAP are selected for you.";
       const order = [detected, ...["mac", "win", "linux"].filter(o => o !== detected)];
       const buttons = order.map(os => {
         const a = rel.assets.find(x => x.name.endsWith(SUITE_ASSET[os][0])); if (!a) return "";
@@ -718,7 +723,11 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
         document.getElementById("suite-text").textContent = "Unpack the archive and run ./install.sh to install every plugin for your user, or name the ones you want.";
     })
     .catch(() => {
-      document.getElementById("suite-text").textContent = "The collection installer is on its way. Until then, install from the individual zips below.";
+      document.getElementById("suite-text").innerHTML = suiteChecked
+        ? 'The collection installer is on its way. Until then, install from the individual zips below. Want to know when it is out? <a href="#news">The newsletter</a> says so first.'
+        : 'We could not check for the collection installer just now. Install from the individual zips below, or see the <a href="https://github.com/epsilon-records/epsilon-plugins/releases">releases page</a>.';
+      if (!suiteChecked)
+        document.getElementById("download-intro").innerHTML = 'Install each plugin from its own zip, then rescan in your DAW; the <a href="install">install guides</a> show where to look.';
       document.getElementById("zips").open = true;
     });
 
