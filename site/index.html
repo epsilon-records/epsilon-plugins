@@ -331,7 +331,7 @@ details.zips[open] summary { margin-bottom: 20px; }
         <div>
           <p class="label">Free · Open source · From Epsilon Records, Amsterdam</p>
           <h1>Free plugins for producers who make their <em>own sound.</em></h1>
-          <p class="lede">Fifteen instruments and effects for sound design, mixing and electronic music: synths, filters, a tape delay, a reverb, distortion, an EQ and dynamics. Three operating systems, one installer, and the source for every line.</p>
+          <p class="lede">Fifteen instruments and effects for sound design, mixing and electronic music: synths, filters, a tape delay, a reverb, distortion, an EQ and dynamics. Three operating systems, and the source for every line.</p>
           <div class="cta">
             <a class="btn btn-primary btn-lg" href="#plugins">Explore the plugins</a>
             <a class="btn btn-lg" href="#download">Download the plugins</a>
@@ -359,7 +359,7 @@ details.zips[open] summary { margin-bottom: 20px; }
       <div class="block-head">
         <p class="label">The catalogue</p>
         <h2>Pick a specimen</h2>
-        <p>Start from what you want to do. Every plugin is free, comes with factory presets and a manual, and installs from one collection installer.</p>
+        <p>Start from what you want to do. Every plugin is free and comes with factory presets and a manual.</p>
       </div>
       <div class="filters" role="group" aria-label="Filter plugins by task" id="filters"></div>
       <p class="task-blurb" id="task-blurb" aria-live="polite"></p>
@@ -647,7 +647,7 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
     mac: {
       zip: "macOS 10.13+ (Apple Silicon + Intel)", formats: ["VST3", "AU", "CLAP"],
       rows: [["VST3", ".vst3", "~/Library/Audio/Plug-Ins/VST3"], ["AU", ".component", "~/Library/Audio/Plug-Ins/Components"], ["CLAP", ".clap", "~/Library/Audio/Plug-Ins/CLAP"]],
-      extra: { title: "Clear the quarantine flag", text: "Plugins copied from a zip are quarantined by macOS until the builds are notarized. The collection installer above avoids this step; if you install from zips, one command clears the flag for every Epsilon plugin:", code: `xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/*/{${NAMES}}*` }
+      extra: { title: "Clear the quarantine flag", text: "Plugins copied from a zip are quarantined by macOS until the builds are notarized. Once the collection installer is out it will avoid this step; for zips, one command clears the flag for every Epsilon plugin:", code: `xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/*/{${NAMES}}*` }
     },
     win: {
       zip: "Windows x64", formats: ["VST3", "CLAP", "VST2"],
@@ -696,9 +696,11 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
   const SUITE_ASSET = { mac: [".pkg", "macOS 10.13+ · Apple Silicon and Intel"], win: [".exe", "Windows 10 and 11 · x64"], linux: [".tar.gz", "Linux · x86_64"] };
   const OS_NAME = { mac: "macOS", win: "Windows", linux: "Linux" };
   const MB = n => (n / 1048576).toFixed(0) + " MB";
+  let suiteChecked = false;
   fetch("https://api.github.com/repos/epsilon-records/epsilon-plugins/releases?per_page=20")
     .then(r => r.ok ? r.json() : Promise.reject(r.status))
     .then(list => {
+      suiteChecked = true;
       const rel = list.find(r => !r.draft && /^suite-/.test(r.tag_name));
       if (!rel) throw new Error("no suite release");
       document.getElementById("suite-heading").textContent = "One installer, all fifteen plugins";
@@ -721,7 +723,9 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
         document.getElementById("suite-text").textContent = "Unpack the archive and run ./install.sh to install every plugin for your user, or name the ones you want.";
     })
     .catch(() => {
-      document.getElementById("suite-text").innerHTML = 'The collection installer is on its way. Until then, install from the individual zips below. Want to know when it is out? <a href="#news">The newsletter</a> says so first.';
+      document.getElementById("suite-text").innerHTML = suiteChecked
+        ? 'The collection installer is on its way. Until then, install from the individual zips below. Want to know when it is out? <a href="#news">The newsletter</a> says so first.'
+        : 'We could not check for the collection installer just now. Install from the individual zips below, or see the <a href="https://github.com/epsilon-records/epsilon-plugins/releases">releases page</a>.';
       document.getElementById("zips").open = true;
     });
 
