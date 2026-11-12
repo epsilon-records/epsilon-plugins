@@ -757,6 +757,20 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
     t => { const ph = (t * 2) % 1; return (ph * 2 - 1) * 0.35 * Math.exp(-ph * 2.5) + Math.sin(2 * Math.PI * t * 6) * 0.22 * Math.exp(-ph * 4); } // Malachite: saw with a resonant squelch
   ];
   let start = performance.now(), raf = 0, visible = true;
+  // Signature motion (shared/design/components.md): on the first visit of a session the
+  // layers settle bottom-up, oldest first, 40 ms apart, 300 ms each, then the slow drift
+  // carries on. Skipped under prefers-reduced-motion and on later visits in the session.
+  // It starts the first time the canvas scrolls into view (it sits below the fold on most
+  // desktops), so the one moment is seen rather than spent off-screen.
+  let settleAt = null, settlePending = false;
+  try { settlePending = !reduce.matches && !sessionStorage.getItem("strata-settled"); } catch (e) {}
+  const easeOut = t => 1 - Math.pow(1 - t, 3);
+  const settled = (idx, now) => settlePending ? 0 : settleAt === null ? 1 : easeOut(Math.min(1, Math.max(0, (now - settleAt - idx * 40) / 300)));
+  function beginSettle() {
+    if (!settlePending) return;
+    settlePending = false; settleAt = performance.now();
+    try { sessionStorage.setItem("strata-settled", "1"); } catch (e) {}
+  }
   function tokens() { const cs = getComputedStyle(document.documentElement); return { layers: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].map(i => cs.getPropertyValue("--l" + i).trim()), label: cs.getPropertyValue("--stratum-label").trim(), bg: cs.getPropertyValue("--bg").trim() }; }
   function draw(now) {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -772,11 +786,14 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
     // Draw from the top layer down so lower layers paint over the bottom edge of upper ones.
     const boundary = (k, x) => {               // k: 0 = top surface of layer index (n-1)
       const idx = n - 1 - k;                   // plugin index for this boundary
-      const base = band * (0.6 + k);
+      const base = band * (0.6 + k) - (1 - settled(idx, now)) * band * 1.2;
       return base + WAVES[idx](x / w * cycles + drift * (idx % 2 ? 1 : -1) + idx * 0.37) * amp;
     };
     for (let k = 0; k < n; k++) {
       const idx = n - 1 - k;
+      const a = settled(idx, now);
+      if (a === 0) continue;
+      ctx.globalAlpha = a;
       ctx.beginPath();
       ctx.moveTo(0, boundary(k, 0));
       for (let x = 0; x <= w; x += 2) ctx.lineTo(x, boundary(k, x));
@@ -784,7 +801,7 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
       ctx.fillStyle = tk.layers[idx] || "#777"; ctx.fill();
       // fine sediment lines
       ctx.save(); ctx.clip();
-      ctx.globalAlpha = 0.12; ctx.strokeStyle = tk.label; ctx.lineWidth = 1;
+      ctx.globalAlpha = 0.12 * a; ctx.strokeStyle = tk.label; ctx.lineWidth = 1;
       for (let s = 1; s < 4; s++) {
         ctx.beginPath();
         for (let x = 0; x <= w; x += 4) { const y = boundary(k, x) + band * s / 4 + Math.sin(x / 37 + s + idx) * 1.5; x ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
@@ -797,12 +814,14 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
     const big = w > 560;
     for (let k = 0; k < n; k++) {
       const idx = n - 1 - k, p = PLUGINS[idx];
-      const y = band * (0.6 + k) + band * 0.55 + (big ? 0 : 1);
-      ctx.globalAlpha = 0.95;
+      const a = settled(idx, now);
+      if (a === 0) continue;
+      const y = band * (0.6 + k) - (1 - a) * band * 1.2 + band * 0.55 + (big ? 0 : 1);
+      ctx.globalAlpha = 0.95 * a;
       ctx.font = `700 ${big ? 16 : 13}px ${getComputedStyle(document.documentElement).getPropertyValue("--font-display")}`;
       ctx.fillText(p.name.toUpperCase(), 14, y);
       if (big) {
-        ctx.globalAlpha = 0.7;
+        ctx.globalAlpha = 0.7 * a;
         ctx.font = `400 11px ${getComputedStyle(document.documentElement).getPropertyValue("--font-mono")}`;
         const t = `${String(idx + 1).padStart(2, "0")} · ${p.kind.split(" · ")[0].toLowerCase()} · v${p.version}`;
         ctx.textAlign = "right"; ctx.fillText(t, w - 14, y); ctx.textAlign = "left";
@@ -812,9 +831,9 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
   }
   function loop(now) { draw(now); if (!reduce.matches && visible) raf = requestAnimationFrame(loop); }
   function restart() { cancelAnimationFrame(raf); raf = requestAnimationFrame(loop); }
-  new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible) restart(); }).observe(cv);
+  new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible) { beginSettle(); restart(); } }, { threshold: 0.25 }).observe(cv);
   addEventListener("resize", () => draw(performance.now()));
-  reduce.addEventListener?.("change", restart);
+  reduce.addEventListener?.("change", () => { settlePending = false; settleAt = null; restart(); });
   draw(performance.now()); restart();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => draw(performance.now()));
 })();
