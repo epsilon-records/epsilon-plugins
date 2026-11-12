@@ -647,7 +647,7 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
     mac: {
       zip: "macOS 10.13+ (Apple Silicon + Intel)", formats: ["VST3", "AU", "CLAP"],
       rows: [["VST3", ".vst3", "~/Library/Audio/Plug-Ins/VST3"], ["AU", ".component", "~/Library/Audio/Plug-Ins/Components"], ["CLAP", ".clap", "~/Library/Audio/Plug-Ins/CLAP"]],
-      extra: { title: "Clear the quarantine flag", text: "Plugins copied from a zip are quarantined by macOS until the builds are notarized. Once the collection installer is out it will avoid this step; for zips, one command clears the flag for every Epsilon plugin:", code: `find -E ~/Library/Audio/Plug-Ins -maxdepth 2 -regex '.*/(${NAMES})[^/]*' -exec xattr -dr com.apple.quarantine {} +` }
+      extra: { title: "Clear the quarantine flag", text: "Plugins copied from a zip are quarantined by macOS until the builds are notarized. Once the collection installer is out it will avoid this step; for zips, one command clears the flag for every Epsilon plugin:", code: `find -E ~/Library/Audio/Plug-Ins -maxdepth 2 -regex '.*/(${NAMES})\\.(vst3|vst|component|clap)' -exec xattr -dr com.apple.quarantine {} +` }
     },
     win: {
       zip: "Windows x64", formats: ["VST3", "CLAP", "VST2"],

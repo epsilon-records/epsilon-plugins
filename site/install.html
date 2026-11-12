@@ -110,7 +110,7 @@
       <p>Check that the format your DAW uses is installed (Logic needs the Audio Unit; Ableton Live needs VST3 or AU; Bitwig and Reaper can use CLAP), that the DAW scans the standard folders listed above, and rescan. 32-bit hosts can't load the plugins; they are 64-bit only.</p></details>
     <details id="damaged"><summary>macOS: "is damaged and can't be opened" or "can't be verified"</summary>
       <p>macOS quarantines plugins copied from a downloaded zip until the builds are notarized. Clear the flag for every Epsilon Audio plugin in Terminal (once the collection installer is out, it avoids this step):</p>
-      <pre tabindex="0" aria-label="Terminal command to clear the quarantine flag">find -E ~/Library/Audio/Plug-Ins -maxdepth 2 -regex '.*/(Monolith|Caldera|Obsidian|Strata|Basalt|Gneiss|Mica|Flint|Granite|Slate|Magma|Talc|Schist|Geode|Malachite)[^/]*' -exec xattr -dr com.apple.quarantine {} +</pre></details>
+      <pre tabindex="0" aria-label="Terminal command to clear the quarantine flag">find -E ~/Library/Audio/Plug-Ins -maxdepth 2 -regex '.*/(Monolith|Caldera|Obsidian|Strata|Basalt|Gneiss|Mica|Flint|Granite|Slate|Magma|Talc|Schist|Geode|Malachite)\.(vst3|vst|component|clap)' -exec xattr -dr com.apple.quarantine {} +</pre></details>
     <details><summary>Logic Pro: "failed validation" or the plugin is greyed out</summary>
       <p>Open <b>Logic Pro › Settings › Plug-in Manager</b>, select the plugin and click <b>Reset &amp; Rescan Selection</b>. If it still fails, copy the plugin again from its zip, clear the quarantine flag, and restart Logic.</p></details>
     <details><summary>Windows: SmartScreen blocks the installer</summary>
