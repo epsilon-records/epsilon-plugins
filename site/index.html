@@ -726,6 +726,8 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
       document.getElementById("suite-text").innerHTML = suiteChecked
         ? 'The collection installer is on its way. Until then, install from the individual zips below. Want to know when it is out? <a href="#news">The newsletter</a> says so first.'
         : 'We could not check for the collection installer just now. Install from the individual zips below, or see the <a href="https://github.com/epsilon-records/epsilon-plugins/releases">releases page</a>.';
+      if (!suiteChecked)
+        document.getElementById("download-intro").innerHTML = 'Install each plugin from its own zip, then rescan in your DAW; the <a href="install">install guides</a> show where to look.';
       document.getElementById("zips").open = true;
     });
 
