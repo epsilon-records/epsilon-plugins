@@ -141,3 +141,23 @@ summary { cursor: pointer; font-weight: 600; padding: 10px 0; min-height: 44px; 
 summary:hover { color: var(--text-strong); }
 details[open] { padding-bottom: 14px; }
 @media (max-width: 640px) { main { padding-block: 44px 56px; } .lede { font-size: 18px; } h2 { margin-top: 48px; padding-top: 24px; } }
+
+/* 404: a core sample that came up empty (the plugins site's wink, shared/design/components.md).
+   Three strata at the bottom of the tube, nothing above them. Static SVG, no motion. */
+.notfound { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 48px; align-items: center; padding-top: 72px; padding-bottom: 96px; }
+.notfound-copy { display: flex; flex-direction: column; gap: 20px; max-width: 36rem; }
+.notfound-copy h1 { margin: 0; }
+.notfound-copy .lede { margin: 0; }
+.notfound-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.core { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.core figcaption { font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.04em; color: var(--muted); }
+.core-ruler line { stroke: var(--line-2); stroke-width: 1; }
+.core-empty { fill: var(--surface-2); }
+.core-tube { fill: none; stroke: var(--muted); stroke-width: 1.5; }
+.core-l1 { fill: #6f523a; }
+.core-l2 { fill: #85613f; }
+.core-l3 { fill: #3a3446; }
+@media (max-width: 640px) {
+  .notfound { grid-template-columns: 1fr; gap: 32px; padding-top: 40px; padding-bottom: 64px; }
+  .core svg { width: 96px; height: 240px; }
+}
