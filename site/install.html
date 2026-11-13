@@ -33,7 +33,14 @@
   <div class="wrap">
     <p class="label">Install guides</p>
     <h1>Install, then find them in your DAW</h1>
-    <p class="lede">Three steps: run the collection installer for your system, rescan plugins in your DAW, then look for <b>Epsilon Audio</b> in its plugin list. Every plugin also comes as VST3 and CLAP, and as an Audio Unit on macOS.</p>
+    <p class="lede">Three steps: install the plugins for your system, rescan plugins in your DAW, then look for <b>Epsilon Audio</b> in its plugin list. Every plugin also comes as VST3 and CLAP, and as an Audio Unit on macOS.</p>
+    <p class="note" id="zips-today"><b>Today: install from the zips.</b> The collection installer described below isn't released yet. Until it is, download each plugin's zip for your system from the <a href="/#download">download section</a>, unpack it, and copy the plugin files into these folders:</p>
+    <ul>
+      <li><b>macOS:</b> <code>.vst3</code> into <code>~/Library/Audio/Plug-Ins/VST3</code>, <code>.component</code> into <code>~/Library/Audio/Plug-Ins/Components</code>, <code>.clap</code> into <code>~/Library/Audio/Plug-Ins/CLAP</code>. Then clear the quarantine flag once, as shown under <a href="#damaged">"is damaged and can't be opened"</a>.</li>
+      <li><b>Windows:</b> <code>.vst3</code> into <code>C:\Program Files\Common Files\VST3</code>, <code>.clap</code> into <code>C:\Program Files\Common Files\CLAP</code>.</li>
+      <li><b>Linux:</b> <code>.vst3</code> into <code>~/.vst3</code>, <code>.clap</code> into <code>~/.clap</code>.</li>
+    </ul>
+    <p>Then rescan in your DAW, using the host steps further down. The installer steps per system apply once the collection installer is out.</p>
     <ul class="toc">
       <li><a href="#macos">macOS</a></li><li><a href="#windows">Windows</a></li><li><a href="#linux">Linux</a></li>
       <li><a href="#live">Ableton Live</a></li><li><a href="#logic">Logic Pro</a></li><li><a href="#fl">FL Studio</a></li>
@@ -105,10 +112,10 @@
     <details><summary>A plugin doesn't appear in my DAW</summary>
       <p>Check that the format your DAW uses is installed (Logic needs the Audio Unit; Ableton Live needs VST3 or AU; Bitwig and Reaper can use CLAP), that the DAW scans the standard folders listed above, and rescan. 32-bit hosts can't load the plugins; they are 64-bit only.</p></details>
     <details id="damaged"><summary>macOS: "is damaged and can't be opened" or "can't be verified"</summary>
-      <p>macOS quarantines plugins copied from a downloaded zip until the builds are notarized. Use the collection installer, which avoids this, or clear the flag for every Epsilon Audio plugin in Terminal:</p>
-      <pre tabindex="0" aria-label="Terminal command to clear the quarantine flag">xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/*/{Monolith,Caldera,Obsidian,Strata,Basalt,Gneiss,Mica,Flint,Granite,Slate,Magma,Talc,Schist,Geode,Malachite}*</pre></details>
+      <p>macOS quarantines plugins copied from a downloaded zip until the builds are notarized. Clear the flag for every Epsilon Audio plugin in Terminal (once the collection installer is out, it avoids this step):</p>
+      <pre tabindex="0" aria-label="Terminal command to clear the quarantine flag">find -E ~/Library/Audio/Plug-Ins -maxdepth 2 -regex '.*/(Monolith|Caldera|Obsidian|Strata|Basalt|Gneiss|Mica|Flint|Granite|Slate|Magma|Talc|Schist|Geode|Malachite)\.(vst3|vst|component|clap)' -exec xattr -dr com.apple.quarantine {} +</pre></details>
     <details><summary>Logic Pro: "failed validation" or the plugin is greyed out</summary>
-      <p>Open <b>Logic Pro › Settings › Plug-in Manager</b>, select the plugin and click <b>Reset &amp; Rescan Selection</b>. If it still fails, reinstall it with the collection installer and restart Logic.</p></details>
+      <p>Open <b>Logic Pro › Settings › Plug-in Manager</b>, select the plugin and click <b>Reset &amp; Rescan Selection</b>. If it still fails, copy the plugin again from its zip, clear the quarantine flag, and restart Logic.</p></details>
     <details><summary>Windows: SmartScreen blocks the installer</summary>
       <p>Click <b>More info</b>, then <b>Run anyway</b>. It appears because the installer isn't signed with a paid code-signing certificate yet. You can check the download against the published SHA-256 checksums (below).</p></details>
     <details><summary>Linux: the plugin loads but its window stays blank</summary>

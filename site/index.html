@@ -645,12 +645,12 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
     `<a href="${repo(p)}/releases/latest" target="_blank" rel="noopener"><b>${esc(p.name)}</b><span>v${p.version} ↗</span></a>`).join("");
 
   // Platform tabs
-  const NAMES = PLUGINS.map(p => p.name).join(",");
+  const NAMES = PLUGINS.map(p => p.name).join("|");
   const OS = {
     mac: {
       zip: "macOS 10.13+ (Apple Silicon + Intel)", formats: ["VST3", "AU", "CLAP"],
       rows: [["VST3", ".vst3", "~/Library/Audio/Plug-Ins/VST3"], ["AU", ".component", "~/Library/Audio/Plug-Ins/Components"], ["CLAP", ".clap", "~/Library/Audio/Plug-Ins/CLAP"]],
-      extra: { title: "Clear the quarantine flag", text: "Plugins copied from a zip are quarantined by macOS until the builds are notarized. Once the collection installer is out it will avoid this step; for zips, one command clears the flag for every Epsilon plugin:", code: `xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/*/{${NAMES}}*` }
+      extra: { title: "Clear the quarantine flag", text: "Plugins copied from a zip are quarantined by macOS until the builds are notarized. Once the collection installer is out it will avoid this step; for zips, one command clears the flag for every Epsilon plugin:", code: `find -E ~/Library/Audio/Plug-Ins -maxdepth 2 -regex '.*/(${NAMES})\\.(vst3|vst|component|clap)' -exec xattr -dr com.apple.quarantine {} +` }
     },
     win: {
       zip: "Windows x64", formats: ["VST3", "CLAP", "VST2"],
