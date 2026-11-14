@@ -401,7 +401,7 @@ details.zips[open] summary { margin-bottom: 20px; }
     </div>
     <div class="wrap">
       <figure class="section-cut">
-        <canvas id="strata" aria-label="Cross-section of fifteen rock layers, one per plugin, from Monolith at the base to Malachite at the top. Each layer boundary is drawn as a waveform."></canvas>
+        <canvas id="strata-section" aria-label="Cross-section of fifteen rock layers, one per plugin, from Monolith at the base to Malachite at the top. Each layer boundary is drawn as a waveform."></canvas>
         <figcaption class="legend label"><span>Section A–A′ · release order, oldest at the base</span><span>Boundaries drawn as each plugin's signal</span></figcaption>
       </figure>
     </div>
@@ -797,7 +797,7 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
   });
 
   // Strata canvas: one layer per plugin, oldest at the base; boundaries are waveforms.
-  const cv = document.getElementById("strata"); const ctx = cv.getContext("2d");
+  const cv = document.getElementById("strata-section"); const ctx = cv.getContext("2d");
   const reduce = matchMedia("(prefers-reduced-motion: reduce)");
   const frac = x => x - Math.floor(x);
   // Boundary shapes, top of each layer. t = phase in cycles.
