@@ -27,6 +27,7 @@
   color-scheme: dark;
   --bg: #0e0f11; --surface: #16181c; --surface-2: #131519;
   --line: #2c3036; --line-2: #3a3f46;
+  --line-control: #646a73; /* control boundaries, ~3.5:1 on bg (shared 0054) */
   --text: #e8eaed; --text-strong: #ffffff; --soft: #c5c9cf; --muted: #a6abb3;
   --accent: #5cc3a3; --on-accent: #0e0f11; --accent-line: color-mix(in srgb, var(--accent) 45%, transparent);
   --code-bg: #131519; --code-fg: #c5c9cf;
@@ -106,7 +107,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 /* Buttons: square, 44 px, one primary per view. */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 18px;
-  border: 1px solid var(--line-2); border-radius: 0; background: transparent; color: var(--text);
+  border: 1px solid var(--line-control); border-radius: 0; background: transparent; color: var(--text);
   font: inherit; font-size: 15px; font-weight: 600; text-decoration: none; cursor: pointer;
 }
 .btn:hover { border-color: var(--text); color: var(--text-strong); }
@@ -157,7 +158,7 @@ section.block { padding-block: 72px; border-top: 1px solid var(--line); }
 .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
 .chip {
   font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase;
-  border: 1px solid var(--line-2); border-radius: 0; background: transparent; color: var(--soft);
+  border: 1px solid var(--line-control); border-radius: 0; background: transparent; color: var(--soft);
   padding: 0 14px; cursor: pointer; min-height: 44px; display: inline-flex; align-items: center;
 }
 .chip:hover { border-color: var(--text); color: var(--text-strong); }
@@ -303,7 +304,7 @@ details.zips[open] summary { margin-bottom: 20px; }
 .signup p:not(.label) { color: var(--muted); }
 .signup form { display: flex; gap: 10px; flex-wrap: wrap; }
 .signup input[type=email] {
-  flex: 1 1 220px; min-width: 0; min-height: 44px; padding: 0 14px; border-radius: 0; border: 1px solid var(--line-2);
+  flex: 1 1 220px; min-width: 0; min-height: 44px; padding: 0 14px; border-radius: 0; border: 1px solid var(--line-control);
   background: var(--surface); color: var(--text); font: inherit; font-size: 15px;
 }
 .signup input[type=email]::placeholder { color: var(--muted); }
