@@ -30,8 +30,10 @@ jobs:
       v: ${{ steps.v.outputs.v }}
     steps:
       - id: v
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
         run: |
-          v="${{ inputs.version }}"
+          v="$INPUT_VERSION"
           [ -n "$v" ] || v="$(date -u +%Y.%m.%d)"
           echo "v=$v" >> "$GITHUB_OUTPUT"
 
