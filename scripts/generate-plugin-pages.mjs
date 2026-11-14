@@ -106,7 +106,7 @@ ${JSON.stringify(ld, null, 2).replace(/<\//g, "<\\/")}
     <p class="lede">${esc(p.name)} is a free, open-source ${esc(kind)} plugin. ${esc(p.summary)}</p>
     <p>Version ${esc(p.version)} comes with ${p.factory_presets} factory presets and a manual. It runs on macOS, Windows and Linux as ${esc(allFormats.slice(0, 3).join(", "))}, with VST2 on Windows and Linux. It costs nothing and the source is public under the MIT licence.</p>
     <p class="cta"><a class="btn btn-primary" href="${esc(p.releases)}" target="_blank" rel="noopener">Download ${esc(p.name)}</a> <a class="btn" href="${esc(p.repo)}/blob/main/docs/MANUAL.md" target="_blank" rel="noopener">Manual</a> <a class="btn" href="${esc(p.repo)}" target="_blank" rel="noopener">Source</a></p>
-    <p><img src="img/${id}.webp" alt="${esc(alt)}" width="${w}" height="${h}"></p>
+    <p><img src="img/${id}.webp" alt="${esc(alt)}" width="${w}" height="${h}" style="height:auto"></p>
 
     <h2>Facts</h2>
     <div class="table-scroll">
