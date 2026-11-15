@@ -10,23 +10,23 @@
 
 ## Plugins
 
-Each plugin has its own source repository and a card on the catalogue page.
+Each plugin has its own page, with its formats, version and download link, and its own source repository.
 
-- [Monolith](https://plugins.epsilonrecords.com/#monolith): Subtractive synthesizer, mono or 10-voice poly.
-- [Caldera](https://plugins.epsilonrecords.com/#caldera): Stereo filter effect with up to four filters, eleven styles and drag-and-drop modulation.
-- [Obsidian](https://plugins.epsilonrecords.com/#obsidian): Polyphonic four-oscillator, four-filter synthesizer with effects and an arpeggiator, up to 64 voices.
-- [Strata](https://plugins.epsilonrecords.com/#strata): Stereo tape delay with extra taps, filters in the feedback loop, lo-fi, ducking and pitch effects, and freeze.
-- [Basalt](https://plugins.epsilonrecords.com/#basalt): Stereo dual filter for live use.
-- [Gneiss](https://plugins.epsilonrecords.com/#gneiss): Stereo compressor with 14 styles, lookahead, oversampling, a sidechain EQ and loudness metering.
-- [Mica](https://plugins.epsilonrecords.com/#mica): 24-band stereo equalizer with dynamic and spectral EQ, EQ Match and three phase modes.
-- [Flint](https://plugins.epsilonrecords.com/#flint): Small saturating filter with an envelope follower.
-- [Granite](https://plugins.epsilonrecords.com/#granite): Stereo look-ahead brickwall limiter with true-peak limiting, oversampling, dither and loudness metering.
-- [Slate](https://plugins.epsilonrecords.com/#slate): Gate, expander and ducker with six styles, sidechain filters and MIDI triggering.
-- [Magma](https://plugins.epsilonrecords.com/#magma): Multiband distortion with 28 styles, linear-phase crossovers and drag-and-drop modulation.
-- [Talc](https://plugins.epsilonrecords.com/#talc): De-esser with single-vocal detection and linear-phase split-band processing.
-- [Schist](https://plugins.epsilonrecords.com/#schist): Multiband compressor and expander with freely placed bands and Inf:1 limiting and gating.
-- [Geode](https://plugins.epsilonrecords.com/#geode): Algorithmic reverb with three algorithms, a decay rate EQ, a post EQ and impulse response import.
-- [Malachite](https://plugins.epsilonrecords.com/#malachite): Acid bass synthesizer with a sub oscillator, accent, slide and a 16-step pattern sequencer with 64 patterns and scales.
+- [Monolith](https://plugins.epsilonrecords.com/monolith): Subtractive synthesizer, mono or 10-voice poly.
+- [Caldera](https://plugins.epsilonrecords.com/caldera): Stereo filter effect with up to four filters, eleven styles and drag-and-drop modulation.
+- [Obsidian](https://plugins.epsilonrecords.com/obsidian): Polyphonic four-oscillator, four-filter synthesizer with effects and an arpeggiator, up to 64 voices.
+- [Strata](https://plugins.epsilonrecords.com/strata): Stereo tape delay with extra taps, filters in the feedback loop, lo-fi, ducking and pitch effects, and freeze.
+- [Basalt](https://plugins.epsilonrecords.com/basalt): Stereo dual filter for live use.
+- [Gneiss](https://plugins.epsilonrecords.com/gneiss): Stereo compressor with 14 styles, lookahead, oversampling, a sidechain EQ and loudness metering.
+- [Mica](https://plugins.epsilonrecords.com/mica): 24-band stereo equalizer with dynamic and spectral EQ, EQ Match and three phase modes.
+- [Flint](https://plugins.epsilonrecords.com/flint): Small saturating filter with an envelope follower.
+- [Granite](https://plugins.epsilonrecords.com/granite): Stereo look-ahead brickwall limiter with true-peak limiting, oversampling, dither and loudness metering.
+- [Slate](https://plugins.epsilonrecords.com/slate): Gate, expander and ducker with six styles, sidechain filters and MIDI triggering.
+- [Magma](https://plugins.epsilonrecords.com/magma): Multiband distortion with 28 styles, linear-phase crossovers and drag-and-drop modulation.
+- [Talc](https://plugins.epsilonrecords.com/talc): De-esser with single-vocal detection and linear-phase split-band processing.
+- [Schist](https://plugins.epsilonrecords.com/schist): Multiband compressor and expander with freely placed bands and Inf:1 limiting and gating.
+- [Geode](https://plugins.epsilonrecords.com/geode): Algorithmic reverb with three algorithms, a decay rate EQ, a post EQ and impulse response import.
+- [Malachite](https://plugins.epsilonrecords.com/malachite): Acid bass synthesizer with a sub oscillator, accent, slide and a 16-step pattern sequencer with 64 patterns and scales.
 
 ## Source
 
