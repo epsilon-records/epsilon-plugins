@@ -215,7 +215,7 @@ section.block { padding-block: 72px; border-top: 1px solid var(--line); }
 .chip .n { opacity: 0.7; margin-left: 6px; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
 .card {
-  scroll-margin-top: 96px; background: transparent; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  position: relative; scroll-margin-top: 96px; background: transparent; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
   overflow: hidden; display: flex; flex-direction: column; min-width: 0;
 }
 .card:hover { background: var(--surface); }
@@ -228,6 +228,12 @@ section.block { padding-block: 72px; border-top: 1px solid var(--line); }
 .spec .label { font-size: 12px; }
 .spec .dot { width: 10px; height: 10px; background: var(--c); box-shadow: 0 0 0 1px color-mix(in srgb, var(--text) 25%, transparent); flex: none; }
 .card h3 { font-weight: 700; font-size: 24px; line-height: 1.1; letter-spacing: -0.01em; display: flex; align-items: baseline; gap: 10px; }
+.card h3 a { color: inherit; text-decoration: none; }
+.card h3 a::after { content: ""; position: absolute; inset: 0; } /* the whole card is the link; buttons sit above it */
+.card:hover h3 a, .card h3 a:focus-visible { color: var(--accent); }
+.card h3 a:focus-visible { outline: none; }
+.card h3 a:focus-visible::after { outline: 2px solid var(--accent); outline-offset: -2px; }
+.card .actions, .card audio { position: relative; z-index: 1; }
 .card h3 .v { font-family: var(--font-mono); font-weight: 400; font-size: 13px; color: var(--muted); letter-spacing: 0; }
 .card .kind { color: var(--muted); font-size: 0.9rem; margin-top: -4px; }
 .card .hl { font-size: 15px; color: var(--soft); }
@@ -652,7 +658,7 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
       <div class="shot"><img src="${IMG[p.id]}" alt="${esc(p.name)} interface" loading="lazy" width="760" height="475"></div>
       <div class="body">
         <div class="spec"><span class="dot" aria-hidden="true"></span><span class="label num">No. ${String(i + 1).padStart(2, "0")} · ${CATS.find(c => c[0] === p.task)[1]}</span></div>
-        <h3>${esc(p.name)} <span class="v">v${p.version}</span></h3>
+        <h3><a href="/${p.id}">${esc(p.name)}</a> <span class="v">v${p.version}</span></h3>
         <p class="sub">${esc(p.sub)}</p>
         ${p.audio ? `<audio controls preload="none" src="${p.audio}" aria-label="${esc(p.name)} demo"></audio>` : ""}
         <p class="hl">${esc(p.hl)}</p>
