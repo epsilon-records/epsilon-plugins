@@ -30,9 +30,12 @@ jobs:
       v: ${{ steps.v.outputs.v }}
     steps:
       - id: v
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
         run: |
-          v="${{ inputs.version }}"
+          v="$INPUT_VERSION"
           [ -n "$v" ] || v="$(date -u +%Y.%m.%d)"
+          case "$v" in *[!0-9A-Za-z._-]*|"") echo "::error::version may only contain letters, digits, dots, dashes and underscores"; exit 1;; esac
           echo "v=$v" >> "$GITHUB_OUTPUT"
 
   linux:
@@ -41,7 +44,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: python3 installers/fetch.py linux-x64
-      - run: python3 installers/build-linux.py ${{ needs.version.outputs.v }}
+      - run: python3 installers/build-linux.py "$SUITE_VERSION"
+        env:
+          SUITE_VERSION: ${{ needs.version.outputs.v }}
       - name: Test install
         run: |
           set -euo pipefail
@@ -81,8 +86,9 @@ jobs:
             echo "$NOTARY_KEY" | base64 --decode > "$RUNNER_TEMP/notary.p8"
             echo "NOTARY_KEY_PATH=$RUNNER_TEMP/notary.p8" >> "$GITHUB_ENV"
           fi
-      - run: python3 installers/build-macos.py ${{ needs.version.outputs.v }}
+      - run: python3 installers/build-macos.py "$SUITE_VERSION"
         env:
+          SUITE_VERSION: ${{ needs.version.outputs.v }}
           NOTARY_KEY_ID: ${{ secrets.NOTARY_KEY_ID }}
           NOTARY_ISSUER: ${{ secrets.NOTARY_ISSUER }}
       - name: Test install on the runner
@@ -119,7 +125,9 @@ jobs:
       - name: Inno Setup
         shell: pwsh
         run: if (-not (Test-Path "C:\Program Files (x86)\Inno Setup 6\ISCC.exe")) { choco install innosetup -y --no-progress }
-      - run: python installers/build-windows.py ${{ needs.version.outputs.v }}
+      - run: python installers/build-windows.py "$env:SUITE_VERSION"
+        env:
+          SUITE_VERSION: ${{ needs.version.outputs.v }}
       - name: Test install on the runner
         shell: pwsh
         run: |
