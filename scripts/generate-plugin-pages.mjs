@@ -1,10 +1,14 @@
 // Generates one static page per plugin (site/<name>.html) from plugins.json.
 // No dependencies. Run from the repo root: node scripts/generate-plugin-pages.mjs
 // It also rewrites site/sitemap.xml and site/llms.txt, and the per-plugin rewrites in
-// netlify.toml between its "generated:plugins" marker lines.
+// netlify.toml between its "generated:plugins" marker lines. It also writes the plugin catalogue and
+// install steps into site/index.html between its "generated:catalogue" and "generated:install" markers,
+// from plugins.json plus the presentation data in scripts/catalogue-display.json, so the no-JS page
+// and the pages cannot drift. The inline script in index.html only enhances that markup.
 import { readFileSync, writeFileSync } from "node:fs";
 
 const data = JSON.parse(readFileSync("plugins.json", "utf8"));
+const display = JSON.parse(readFileSync("scripts/catalogue-display.json", "utf8"));
 const SITE = "https://plugins.epsilonrecords.com";
 const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const taskName = Object.fromEntries(data.tasks.map(t => [t.id, t]));
@@ -183,4 +187,76 @@ ${data.plugins.map(p => `- [${p.name}](${SITE}/${p.name.toLowerCase()}): ${p.sum
 `);
 between("netlify.toml", "# generated:plugins", "# /generated:plugins",
   data.plugins.map(p => `\n[[redirects]]\n  from = "/${p.name.toLowerCase()}"\n  to = "/${p.name.toLowerCase()}.html"\n  status = 200\n`).join(""));
+// ---- site/index.html: static catalogue, install steps and releases (EPSILON-237) ----
+const shortVersion = v => v.replace(/\.0$/, ""); // 2.1.0 -> 2.1, as shown on the cards
+const pid = p => p.name.toLowerCase();
+for (const p of data.plugins) if (!display.plugins[pid(p)]) throw new Error(`catalogue-display.json: no entry for ${p.name}`);
+const taskLabel = Object.fromEntries(data.tasks.map(t => [t.id, t.name]));
+const card = (p, i) => {
+  const id = pid(p), x = display.plugins[id], v = shortVersion(p.version);
+  return `    <article class="card" id="${id}" data-cat="${p.task}" data-kind="${esc(x.kind)}" data-version="${v}" data-presets="${p.factory_presets}" style="--c:${x.color}">
+      <div class="shot"><img src="img/${id}.webp" alt="${esc(p.name)} interface" loading="lazy" width="760" height="475"></div>
+      <div class="body">
+        <div class="spec"><span class="dot" aria-hidden="true"></span><span class="label num">No. ${String(i + 1).padStart(2, "0")} · ${esc(taskLabel[p.task])}</span></div>
+        <h3><a href="/${id}">${esc(p.name)}</a> <span class="v">v${v}</span></h3>
+        <p class="sub">${esc(p.subtitle)}</p>
+        <p class="hl">${esc(x.hl)}</p>
+        <dl>
+          <dt>Presets</dt><dd>${p.factory_presets} factory</dd>
+          <dt>Formats</dt><dd>${["VST3", "AU", "CLAP", "VST2"].filter(f => allFormats.includes(f)).join(" · ")}</dd>
+${x.midi ? `          <dt>MIDI</dt><dd>${esc(x.midi)}</dd>\n` : ""}${x.sidechain ? `          <dt>Sidechain</dt><dd>${esc(x.sidechain)}</dd>\n` : ""}          <dt>CLAP ID</dt><dd><code>${esc(p.clap_id)}</code></dd>
+        </dl>
+        <div class="actions">
+          <a class="btn primary" href="#download">Download</a>
+          <a class="btn" href="${esc(p.repo)}/blob/main/docs/MANUAL.md" target="_blank" rel="noopener">Manual</a>
+          <a class="btn" href="${esc(p.repo)}" target="_blank" rel="noopener">Source</a>
+        </div>
+      </div>
+    </article>`;
+};
+const tasksJson = JSON.stringify([["all", "All", display.tasks.all], ...data.tasks.map(t => [t.id, t.name, display.tasks[t.id]])]);
+const catalogue = `      <!-- filters are added by the inline script; without it all cards show -->
+      <div class="filters" role="group" aria-label="Filter plugins by task" id="filters" hidden></div>
+      <p class="task-blurb" id="task-blurb" aria-live="polite" data-tasks="${esc(tasksJson)}">${esc(display.tasks.all)}</p>
+      <div class="grid" id="grid">
+${data.plugins.map(card).join("\n")}
+      </div>
+      `;
+between("site/index.html", "<!-- generated:catalogue -->", "<!-- /generated:catalogue -->", catalogue);
+
+const names = data.plugins.map(p => p.name).join("|");
+const stepsFor = (os, o) => {
+  const formats = data.platforms[o.platform];
+  const extra = o.extra;
+  const code = extra.command ? extra.command.replace("{names}", names) : "";
+  return `        <ol class="steps" id="steps-${os}" data-os="${os}" aria-label="${esc(o.label)}">
+          <li><div><h3>Download the ${esc(o.zip)} zip</h3><p>From the plugin's Releases page. It contains:</p><div class="formats">${formats.map(f => `<span class="fmt">${esc(f)}</span>`).join("")}</div></div></li>
+          <li><div><h3>Copy each format to its folder</h3>
+            <div class="table-scroll" tabindex="0" role="region" aria-label="Where each ${esc(o.label)} plugin format lives"><table class="paths"><thead><tr><th>Format</th><th>File</th><th>Folder</th></tr></thead><tbody>
+${o.rows.map(r => `              <tr><td>${esc(r[0])}</td><td><code>${esc(r[1])}</code></td><td><code>${esc(r[2])}</code></td></tr>`).join("\n")}
+            </tbody></table></div></div></li>
+          <li><div><h3>${esc(extra.title)}</h3><p>${esc(extra.text)}</p>
+${code ? `            <div class="code"><pre id="os-code" tabindex="0" aria-label="Install command for macOS">${esc(code)}</pre><button class="copy" data-copy="os-code" type="button">Copy</button></div>\n` : ""}          </div></li>
+        </ol>`;
+};
+const install = `        <div class="os-steps">
+${Object.entries(display.install).map(([os, o]) => `          <p class="label os-label" data-os="${os}">${esc(o.label)}</p>\n${stepsFor(os, o)}`).join("\n")}
+        </div>
+        <div class="releases">
+          <p class="label">Latest releases</p>
+          <div class="release-list" id="releases">
+${data.plugins.map(p => `            <a href="${esc(p.releases)}" target="_blank" rel="noopener"><b>${esc(p.name)}</b><span>v${shortVersion(p.version)} ↗</span></a>`).join("\n")}
+          </div>
+        </div>
+        `;
+between("site/index.html", "<!-- generated:install -->", "<!-- /generated:install -->", install);
+
+// Hero fact: total factory presets.
+{
+  const t = readFileSync("site/index.html", "utf8");
+  const total = data.plugins.reduce((a, p) => a + p.factory_presets, 0);
+  const u = t.replace(/(id="preset-total">)\d+(<)/, `$1${total}$2`);
+  if (u === t && !t.includes(`id="preset-total">${total}<`)) throw new Error("preset-total not found");
+  writeFileSync("site/index.html", u);
+}
 console.log(`wrote ${data.plugins.length} pages`);
