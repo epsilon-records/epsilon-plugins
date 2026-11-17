@@ -215,8 +215,12 @@ ${x.midi ? `          <dt>MIDI</dt><dd>${esc(x.midi)}</dd>\n` : ""}${x.sidechain
     </article>`;
 };
 const tasksJson = JSON.stringify([["all", "All", display.tasks.all], ...data.tasks.map(t => [t.id, t.name, display.tasks[t.id]])]);
-const catalogue = `      <!-- filters are added by the inline script; without it all cards show -->
-      <div class="filters" role="group" aria-label="Filter plugins by task" id="filters" hidden></div>
+const taskLinks = [["all", "All", "grid"], ...data.tasks.map(t => [t.id, t.name, pid(data.plugins.find(p => p.task === t.id))])];
+const catalogue = `      <!-- Ordinary links work without scripting; the inline script enhances them into filters. -->
+      <div class="filters" role="group" aria-label="Browse plugins by task" id="filters">
+${taskLinks.map(([id, name, target]) => `        <a class="chip" href="#${target}">${esc(name)}<span class="n num">${id === "all" ? data.plugins.length : data.plugins.filter(p => p.task === id).length}</span></a>`).join("\n")}
+      </div>
+      <p class="task-jump-note">Task links jump to the first matching plugin; all fifteen are listed below.</p>
       <p class="task-blurb" id="task-blurb" aria-live="polite" data-tasks="${esc(tasksJson)}">${esc(display.tasks.all)}</p>
       <div class="grid" id="grid">
 ${data.plugins.map(card).join("\n")}

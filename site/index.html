@@ -210,6 +210,7 @@ section.block { padding-block: 72px; border-top: 1px solid var(--line); }
   border: 1px solid var(--line-control); border-radius: 0; background: transparent; color: var(--soft);
   padding: 0 14px; cursor: pointer; min-height: 44px; display: inline-flex; align-items: center;
 }
+.chip { text-decoration: none; }
 .chip:hover { border-color: var(--text); color: var(--text-strong); }
 .chip[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
 .chip .n { opacity: 0.7; margin-left: 6px; }
@@ -342,6 +343,7 @@ section.block { padding-block: 72px; border-top: 1px solid var(--line); }
 .footer nav a:hover { color: var(--text-strong); }
 
 /* Task filter: what you want to do, then the plugins for it */
+.task-jump-note { color: var(--muted); font-size: 15px; margin-bottom: 24px; }
 .task-blurb { color: var(--muted); font-size: 15px; margin: -8px 0 24px; min-height: 1.6em; }
 .card .sub { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent); margin-top: -4px; }
 .card audio { width: 100%; height: 36px; }
@@ -423,8 +425,16 @@ details.zips[open] summary { margin-bottom: 20px; }
         <p>Start from what you want to do. Every plugin is free and comes with factory presets and a manual.</p>
       </div>
       <!-- generated:catalogue -->
-      <!-- filters are added by the inline script; without it all cards show -->
-      <div class="filters" role="group" aria-label="Filter plugins by task" id="filters" hidden></div>
+      <!-- Ordinary links work without scripting; the inline script enhances them into filters. -->
+      <div class="filters" role="group" aria-label="Browse plugins by task" id="filters">
+        <a class="chip" href="#grid">All<span class="n num">15</span></a>
+        <a class="chip" href="#monolith">Create<span class="n num">3</span></a>
+        <a class="chip" href="#caldera">Shape<span class="n num">3</span></a>
+        <a class="chip" href="#magma">Distort<span class="n num">1</span></a>
+        <a class="chip" href="#gneiss">Mix<span class="n num">5</span></a>
+        <a class="chip" href="#strata">Finish<span class="n num">3</span></a>
+      </div>
+      <p class="task-jump-note">Task links jump to the first matching plugin; all fifteen are listed below.</p>
       <p class="task-blurb" id="task-blurb" aria-live="polite" data-tasks="[[&quot;all&quot;,&quot;All&quot;,&quot;All fifteen, in release order.&quot;],[&quot;create&quot;,&quot;Create&quot;,&quot;Synths and instruments: a subtractive synth, a polysynth and an acid bass synth with its own sequencer.&quot;],[&quot;shape&quot;,&quot;Shape&quot;,&quot;Filters and movement: resonant multi-filters, a live performance filter and a light saturating filter.&quot;],[&quot;distort&quot;,&quot;Distort&quot;,&quot;Saturation and multiband distortion, from warm tape to broken.&quot;],[&quot;mix&quot;,&quot;Mix&quot;,&quot;EQ, compression, gating, multiband dynamics and de-essing.&quot;],[&quot;finish&quot;,&quot;Finish&quot;,&quot;Space, echo and loudness: a reverb, a tape delay and a limiter.&quot;]]">All fifteen, in release order.</p>
       <div class="grid" id="grid">
     <article class="card" id="monolith" data-cat="create" data-kind="Synth · instrument" data-version="2.1" data-presets="42" style="--c:#e8a23a">
@@ -975,7 +985,8 @@ make -C plugins/&lt;Name&gt; WINDOWS=true \
   const filters = document.getElementById("filters");
   const count = c => c === "all" ? PLUGINS.length : PLUGINS.filter(p => p.task === c).length;
   const blurb = document.getElementById("task-blurb");
-  filters.hidden = false;
+  document.querySelector(".task-jump-note").hidden = true;
+  filters.setAttribute("aria-label", "Filter plugins by task");
   filters.innerHTML = CATS.map(([c, l]) => `<button class="chip" type="button" data-cat="${c}" aria-pressed="${c === "all"}">${l}<span class="n num">${count(c)}</span></button>`).join("");
   blurb.textContent = CATS[0][2];
   filters.addEventListener("click", e => {
