@@ -56,7 +56,7 @@ function page(p) {
     ["CLAP ID", `<code>${esc(p.clap_id)}</code>`],
   ].map(([k, v]) => `<tr><th scope="row">${esc(k)}</th><td>${typeof v === "string" && v.startsWith("<code>") ? v : esc(v)}</td></tr>`).join("\n        ");
   return `<!doctype html>
-<html lang="en">
+<html lang="en" data-product="plugins" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
