@@ -1,3 +1,5 @@
+@import url("/tokens.css");
+
 /* Shared styles for the secondary pages (install guides, how they're made).
    Tokens and chrome match index.html and the Epsilon family (epsilonrecords.com). */
 /* Epsilon family tokens (knowledge shared/design/tokens.css), matched to epsilonrecords.com:
@@ -60,7 +62,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 }
 .brand:hover { color: var(--text); }
 .brand-mark { display: inline-flex; color: var(--accent); }
-.brand .by { font-family: var(--font-mono); font-size: 12px; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--muted); }
+.brand .by { font-family: var(--font-mono); font-size: var(--step--1); font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--muted); }
 .nav-links { display: flex; flex-wrap: wrap; align-items: center; gap: 0 24px; font-size: 15px; }
 .nav-links a:not(.btn) {
   color: var(--soft); text-decoration: none; display: inline-flex; align-items: center; min-height: 44px;
@@ -135,7 +137,7 @@ pre code { color: inherit; }
 .table-scroll { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 15px; }
 th, td { text-align: left; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
-th { font-family: var(--font-mono); font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+th { font-family: var(--font-mono); font-weight: 500; font-size: var(--step--1); text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
 details { border-bottom: 1px solid var(--line); padding: 4px 0; }
 details:first-of-type { border-top: 1px solid var(--line); }
 summary { cursor: pointer; font-weight: 600; padding: 10px 0; min-height: 44px; }
@@ -155,9 +157,9 @@ details[open] { padding-bottom: 14px; }
 .core-ruler line { stroke: var(--line-2); stroke-width: 1; }
 .core-empty { fill: var(--surface-2); }
 .core-tube { fill: none; stroke: var(--muted); stroke-width: 1.5; }
-.core-l1 { fill: #6f523a; }
-.core-l2 { fill: #85613f; }
-.core-l3 { fill: #3a3446; }
+.core-l1 { fill: var(--muted); }
+.core-l2 { fill: var(--line-control); }
+.core-l3 { fill: var(--line); }
 @media (max-width: 640px) {
   .notfound { grid-template-columns: 1fr; gap: 32px; padding-top: 40px; padding-bottom: 64px; }
   .core svg { width: 96px; height: 240px; }

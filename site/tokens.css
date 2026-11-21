@@ -1,0 +1,241 @@
+/* Epsilon canonical token set. Pass 1, 2026-11-11.
+ *
+ * This file is the canonical vocabulary for every Epsilon surface. Each repo
+ * ships a verbatim mirror of it (src/app.css, src/static/styles.css, the
+ * plugins' inline <style>, the console's app.css) plus exactly one override
+ * block from the [data-product] section below. Nothing else may define a
+ * colour, a type size, a radius or a duration.
+ *
+ * Reconciled from the three vocabularies found by the 2026-11-11 design audit
+ * (F-06) without discarding any product's direction:
+ *   LabelKit / label site  --text --soft --muted --on-accent   -> kept as canonical
+ *   AudioKit               --panel --panel-deep --text-soft --faint --accent-ink
+ *                          -> surface, surface-2, soft, muted, on-accent
+ *   Plugins                --ink --accent-ink --code-bg --code-fg
+ *                          -> text, on-accent, code-bg, code-fg (kept, now canonical)
+ *
+ * Contrast: the pairs below are >= 4.5:1 for body text and >= 3:1 for UI in
+ * both themes, computed from the sRGB relative-luminance formula (estimate,
+ * re-verify in the axe pass of each PR). Accents change per theme because a
+ * lime that sings on #0e0f11 disappears on paper.
+ */
+
+@layer tokens {
+  :root {
+    color-scheme: dark;
+
+    /* ground and surfaces */
+    --bg: #0e0f11;
+    --surface: #16181c;
+    --surface-2: #131519;
+    --line: #2c3036;          /* decorative only: cards, tables, dividers */
+    --line-control: #646a73;  /* control boundaries, ~3.5:1 on bg (shared 0054) */
+    --line-strong: #e8eaed;   /* the one loud rule on a page; use once */
+
+    /* text */
+    --text: #e8eaed;
+    --text-strong: #ffffff;
+    --soft: #c5c9cf;
+    --muted: #a6abb3;
+
+    /* brand and state; accent and on-accent come from the product block */
+    --accent: #c6f432;
+    --on-accent: #0e0f11;
+    --accent-soft: color-mix(in srgb, var(--accent) 14%, transparent);
+    --ok: #7fd69a;
+    --warn: #ffd166;
+    --danger: #ff8a80;
+
+    /* code and specimens */
+    --code-bg: #0b0d0c;
+    --code-fg: #d6ded8;
+
+    /* type: one fluid scale, ratio ~1.2, body floor 16 px (audit F-09) */
+    --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    --font-display: var(--font-body);   /* products may override with one display face */
+    --step--1: 0.833rem;
+    --step-0: 1rem;
+    --step-1: 1.2rem;
+    --step-2: 1.44rem;
+    --step-3: clamp(1.6rem, 1.4rem + 1vw, 1.73rem);
+    --step-4: clamp(1.9rem, 1.5rem + 2vw, 2.07rem);
+    --step-5: clamp(2.3rem, 1.6rem + 3.4vw, 2.49rem);
+    --step-6: clamp(2.7rem, 1.6rem + 5.4vw, 3.1rem);
+    --leading: 1.5;
+    --leading-tight: 1.15;
+    --measure: 68ch;
+
+    /* space: 4/8 rhythm */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-7: 48px;
+    --space-8: 64px;
+    --space-9: 96px;
+
+    /* shape and depth: dark surfaces separate with lines, not shadows */
+    --radius-sm: 6px;
+    --radius: 10px;
+    --radius-pill: 999px;
+    --elev-1: 0 1px 0 color-mix(in srgb, var(--line) 60%, transparent);
+    --elev-pop: 0 12px 32px rgb(0 0 0 / 0.45);
+
+    /* focus: one ring everywhere, never removed (audit F-03, F-10) */
+    --focus-width: 2px;
+    --focus-offset: 3px;
+
+    /* motion: four durations, three easings, one pulse.
+     * --pulse is one beat at 124 BPM; micro-interactions may sit on it or on
+     * half of it. Nothing loops in a work tool. prefers-reduced-motion sets
+     * every duration to 0 and kills transforms; ship that with the first
+     * motion, not after (audit F-12). */
+    --dur-1: 100ms;
+    --dur-2: 200ms;
+    --dur-3: 300ms;
+    --dur-4: 500ms;
+    --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    --ease-tick: cubic-bezier(0.34, 1.3, 0.64, 1);  /* the one restrained overshoot, specs and toasts only */
+    --pulse: 484ms;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme='dark']) {
+      color-scheme: light;
+      --bg: #f4f4f2;
+      --surface: #fbfbfa;
+      --surface-2: #ededeb;
+      --line: #d6d7d3;
+      --line-control: #7d8087;
+      --line-strong: #17181a;
+      --text: #17181a;
+      --text-strong: #000000;
+      --soft: #3c3e42;
+      --muted: #5c5f66;
+      --on-accent: #ffffff;
+      --ok: #1c7a43;
+      --warn: #8a5a00;
+      --danger: #b3261e;
+      --code-bg: #17181a;
+      --code-fg: #e6e8e4;
+      --elev-pop: 0 12px 32px rgb(20 20 18 / 0.18);
+    }
+  }
+
+  :root[data-theme='light'] {
+    color-scheme: light;
+    --bg: #f4f4f2;
+    --surface: #fbfbfa;
+    --surface-2: #ededeb;
+    --line: #d6d7d3;
+    --line-control: #7d8087;
+    --line-strong: #17181a;
+    --text: #17181a;
+    --text-strong: #000000;
+    --soft: #3c3e42;
+    --muted: #5c5f66;
+    --on-accent: #ffffff;
+    --ok: #1c7a43;
+    --warn: #8a5a00;
+    --danger: #b3261e;
+    --code-bg: #17181a;
+    --code-fg: #e6e8e4;
+    --elev-pop: 0 12px 32px rgb(20 20 18 / 0.18);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --dur-1: 0ms; --dur-2: 0ms; --dur-3: 0ms; --dur-4: 0ms; --pulse: 0ms;
+    }
+  }
+
+  /* ---- product overrides: one block each, values are today's shipped values ---- */
+
+  /* LabelKit and the label site: lime on near-black, Plex, 6 px radii. */
+  :root[data-product='labelkit'],
+  :root[data-product='label-site'] {
+    --accent: #c6f432;
+    --on-accent: #0e0f11;
+    --radius: 6px;
+  }
+  /* Light: the label site turns lime into olive. LabelKit keeps lime as the fill under black ink
+   * and uses olive as the ink accent (the "lime highlighter", labelkit 0038): read the ink role as
+   * var(--accent-ink, var(--accent)) and the fill's border as var(--accent-border, var(--accent)). */
+  @media (prefers-color-scheme: light) {
+    :root[data-product='label-site']:not([data-theme='dark']) { --accent: #4d6b00; --on-accent: #ffffff; }
+    :root[data-product='labelkit']:not([data-theme='dark']) { --on-accent: #17181a; --accent-ink: #4d6b00; --accent-border: #17181a; --on-danger: #ffffff; }
+  }
+  :root[data-product='label-site'][data-theme='light'] { --accent: #4d6b00; --on-accent: #ffffff; }
+  :root[data-product='labelkit'][data-theme='light'] { --on-accent: #17181a; --accent-ink: #4d6b00; --accent-border: #17181a; --on-danger: #ffffff; }
+
+  /* AudioKit site and console: amber on blue-black. The pair keeps its voices
+   * by override, not by a parallel vocabulary; moving it to Plex is a decision
+   * for Nate (audit F-06), not a silent swap. */
+  :root[data-product='audiokit'] {
+    --accent: #ffb547;
+    --on-accent: #14110a;
+    --bg: #0c0e11;
+    --surface: #14171c;
+    --surface-2: #0f1215;
+    --line: #262b33;
+    --line-strong: #e6e8eb;
+    --text: #e6e8eb;
+    --soft: #c3c9d1;
+    --muted: #b4bcc6;
+    --font-body: 'Space Grotesk', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  }
+  @media (prefers-color-scheme: light) {
+    :root[data-product='audiokit']:not([data-theme='dark']) { --accent: #9a5b00; --on-accent: #ffffff; }
+  }
+  :root[data-product='audiokit'][data-theme='light'] { --accent: #9a5b00; --on-accent: #ffffff; }
+
+  /* Plugins site: the label site's dark ground, IBM Plex only, square corners,
+   * malachite accent. Dark only, whatever the visitor's system says (epsilon-audio
+   * decision 0004). Every colour is restated here so the family light blocks
+   * above never reach it. Strata hues live in the product repo (content, not chrome). */
+  :root[data-product='plugins'] {
+    color-scheme: dark;
+    --accent: #5cc3a3;
+    --on-accent: #0e0f11;
+    --bg: #0e0f11;
+    --surface: #16181c;
+    --surface-2: #131519;
+    --line: #2c3036;
+    --line-strong: #3a3f46;
+    --text: #e8eaed;
+    --text-strong: #ffffff;
+    --soft: #c5c9cf;
+    --muted: #a6abb3;
+    --code-bg: #131519;
+    --code-fg: #c5c9cf;
+    --radius: 0;
+  }
+
+  /* Eurorack site (eurorack.epsilonrecords.com): the plugins site's design with
+   * the hardware line's own azurite accent (epsilon-audio 0008, 0009). Dark only. */
+  :root[data-product='eurorack'] {
+    color-scheme: dark;
+    --accent: #4fb3e8;
+    --on-accent: #0e0f11;
+    --bg: #0e0f11;
+    --surface: #16181c;
+    --surface-2: #131519;
+    --line: #2c3036;
+    --line-strong: #3a3f46;
+    --text: #e8eaed;
+    --text-strong: #ffffff;
+    --soft: #c5c9cf;
+    --muted: #a6abb3;
+    --code-bg: #131519;
+    --code-fg: #c5c9cf;
+    --radius: 0;
+  }
+
+  /* Billing surfaces: no override of their own yet. They take the audiokit
+   * block until Stripe's hosted chrome is measured (knowledge#74). */
+}
