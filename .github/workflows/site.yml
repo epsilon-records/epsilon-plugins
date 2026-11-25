@@ -3,11 +3,10 @@ on:
   pull_request:
   push:
     branches: [main]
-    paths: ['site/**', 'scripts/**', 'plugins.json', '.github/workflows/site.yml']
 permissions:
   contents: read
 jobs:
-  catalogue:
+  check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
